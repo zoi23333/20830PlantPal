@@ -13,6 +13,5 @@ Note: Make sure you have installed native code dependencies [here](https://react
    1. Press `a` to view on Android Virtual Device or follow the instructions [here](https://docs.expo.dev/workflow/run-on-device/) to run on a physical device.
 
 ### Aware:
-Do not choose 'node_modules' folder and '.DS_Store' file when commiting.
 
 Please do not change main brach directly. Creating your own branch then merge it with the main. (When commiting your branch, Do not upload 'node_modules' folder and '.DS_Store' file.)
