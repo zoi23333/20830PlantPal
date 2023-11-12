@@ -1,8 +1,16 @@
 import * as React from "react";
-import { ScrollView, StyleSheet, View, Text, Pressable } from "react-native";
+// import { ScrollView, StyleSheet, View, Text, Pressable } from "react-native";
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
 import { Color, FontSize, FontFamily, Border, Padding } from "../GlobalStyles";
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  Dimensions,
+} from "react-native";
 
 const PlantDetails = () => {
   const navigation = useNavigation();
@@ -199,101 +207,82 @@ Light`}</Text>
           <Text style={styles.guides}>Plant Profile</Text>
           <View style={styles.rectangleGroup}>
             <View style={[styles.frameItem, styles.frameItemBorder]} />
-            <View style={[styles.frameParent5, styles.dropIcon1Position]}>
-              <View style={styles.boxParent}>
-                <View style={styles.boxParent}>
-                  <View style={styles.ellipseParent}>
+
+            <View
+              style={[
+                styles.proContentContainer,
+                styles.frameParent5,
+                styles.dropIcon1Position,
+              ]}
+            >
+              <View style={styles.profileContent}>
+                <View style={styles.inleft}>
+                  <View style={styles.iconContainer}>
                     <Image
-                      style={[styles.frameInner, styles.frameLayout]}
+                      style={styles.iconprofile}
                       contentFit="cover"
                       source={require("../assets/ellipse-257.png")}
                     />
-                    <Image
-                      style={[styles.frameIcon6, styles.frameIconPosition]}
-                      contentFit="cover"
-                      source={require("../assets/frame3.png")}
-                    />
                   </View>
-                  <Text style={[styles.location, styles.days1Clr]}>
-                    Location
-                  </Text>
+                  <Text>Location</Text>
                 </View>
-                <Text style={[styles.copenhagen, styles.smallTypo]}>
-                  Copenhagen
-                </Text>
+                <Text>Copenhagen</Text>
               </View>
-              <View style={styles.frameParent8}>
-                <View style={styles.boxParent}>
-                  <View style={styles.ellipseParent}>
+
+              <View style={styles.profileContent}>
+                <View style={styles.inleft}>
+                  <View style={styles.iconContainer}>
                     <Image
-                      style={[styles.frameInner, styles.frameLayout]}
+                      style={styles.iconprofile}
                       contentFit="cover"
                       source={require("../assets/ellipse-258.png")}
                     />
-                    <Image
-                      style={styles.frameIcon7}
-                      contentFit="cover"
-                      source={require("../assets/frame4.png")}
-                    />
                   </View>
-                  <Text style={[styles.location, styles.days1Clr]}>Light</Text>
+                  <Text>Light</Text>
                 </View>
-                <Text
-                  style={[styles.copenhagen, styles.smallTypo]}
-                >{`Indirect Sunlight `}</Text>
+                <Text>{`Indirect Sunlight `}</Text>
               </View>
-              <View style={styles.frameParent8}>
-                <View style={styles.boxParent}>
-                  <View style={styles.ellipseParent}>
+
+              <View style={styles.profileContent}>
+                <View style={styles.inleft}>
+                  <View style={styles.iconContainer}>
                     <Image
-                      style={[styles.frameInner, styles.frameLayout]}
+                      style={styles.iconprofile}
                       contentFit="cover"
                       source={require("../assets/ellipse-259.png")}
                     />
+                  </View>
+                  <Text>Plant Size</Text>
+                </View>
+                <Text>Small</Text>
+              </View>
+
+              <View style={styles.profileContent}>
+                <View style={styles.inleft}>
+                  <View style={styles.iconContainer}>
                     <Image
-                      style={styles.frameIcon7}
+                      style={styles.iconprofile}
                       contentFit="cover"
-                      source={require("../assets/frame5.png")}
+                      source={require("../assets/ellipse-260.png")}
                     />
                   </View>
-                  <Text style={[styles.location, styles.days1Clr]}>
-                    Plant Size
-                  </Text>
+                  <Text>Pot Size</Text>
                 </View>
-                <Text style={[styles.small, styles.smallTypo]}>Small</Text>
+                <Text>Small</Text>
               </View>
-              <View style={styles.frameParent8}>
-                <View style={styles.boxParent}>
-                  <Image
-                    style={[styles.frameChild3, styles.frameLayout]}
-                    contentFit="cover"
-                    source={require("../assets/ellipse-260.png")}
-                  />
-                  <Text style={[styles.location, styles.days1Clr]}>
-                    Pot Size
-                  </Text>
-                </View>
-                <Text style={[styles.small1, styles.smallTypo]}>Small</Text>
-              </View>
-              <View style={styles.frameParent8}>
-                <View style={styles.boxParent}>
-                  <View style={styles.ellipseParent}>
+
+              <View style={styles.profileContent}>
+                <View style={styles.inleft}>
+                  <View style={styles.iconContainer}>
                     <Image
-                      style={[styles.frameInner, styles.frameLayout]}
+                      style={styles.iconprofile}
                       contentFit="cover"
                       source={require("../assets/ellipse-261.png")}
                     />
-                    <Image
-                      style={[styles.frameIcon9, styles.iconPosition]}
-                      contentFit="cover"
-                      source={require("../assets/frame6.png")}
-                    />
                   </View>
-                  <Text style={[styles.location, styles.days1Clr]}>
-                    Drainage hole
-                  </Text>
+                  <Text>Drainage hole</Text>
                 </View>
-                <Text style={[styles.yes, styles.smallTypo]}>Yes</Text>
+                <Text>Yes</Text>
               </View>
             </View>
           </View>
@@ -319,6 +308,11 @@ Light`}</Text>
     </ScrollView>
   );
 };
+
+{
+  /* To make some conponents has a flexible size with screenWidth */
+}
+const screenWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   picturePosition: {
@@ -824,6 +818,42 @@ const styles = StyleSheet.create({
     maxWidth: "100%",
     width: "100%",
     backgroundColor: Color.colorWhite,
+  },
+
+  proContentContainer: {
+    flexDirection: "column", // Align children vertically
+    justifyContent: "flex-start", // Align children to the start of the container
+    alignItems: "stretch", // Stretch children to match the width of the container
+    gap: 20, // Gap between each child component (this might need to be adjusted)
+  },
+
+  profileContent: {
+    flexDirection: "row", // Align children horizontally
+    justifyContent: "space-between", // Distribute children on the left and right
+    alignItems: "center", // Center children vertically
+    width: screenWidth * 0.73, // 90% of screen width, adjust the percentage as needed
+  },
+
+  inleft: {
+    flexDirection: "row", // Align children horizantally
+    justifyContent: "flex-start", // Align children to the start of the container vertically
+    alignItems: "center", // Align children to the start of the container horizontally
+    gap: 10,
+  },
+  iconContainer: {
+    position: "relative", // Establishes a positioning context for absolute children
+    width: 30, // Set the desired width
+    height: 30, // Set the desired height
+    // Add any additional styles like margin, padding, etc., as needed
+  },
+  iconprofile: {
+    // Styles for the first image
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    // Set width and height as needed, or leave as above to fill the container
   },
 });
 

@@ -36,10 +36,11 @@ const styles = StyleSheet.create({
     width: 31,
     height: 15,
     marginTop: 3,
+    marginLeft: 2,
   },
   homebutton: {
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   hometab: {
     backgroundColor: Color.colorWhitesmoke_300,
@@ -50,6 +51,15 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_lg,
     justifyContent: "flex-end",
     alignItems: "center",
+    // Shadow properties
+    shadowColor: "#000", // Shadow color
+    shadowOffset: {
+      width: 0, // Horizontal distance of shadow
+      height: 2, // Vertical distance of shadow
+    },
+    shadowOpacity: 0.25, // Shadow opacity
+    shadowRadius: 3.84, // Blur radius of shadow
+    elevation: 5, // Elevation for Android
   },
 });
 

@@ -103,10 +103,11 @@ const styles = StyleSheet.create({
     height: 350,
     zIndex: 0,
     position: "relative",
+    marginTop: 10,
   },
   plantimageAIcon: {
-    top: 0,
-    left: 0,
+    top: 36,
+    left: 42,
     width: 307,
     height: 278,
     zIndex: 1,

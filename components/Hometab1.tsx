@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   vectorIcon1: {
     width: 26,
     height: 25,
+    marginLeft: 2,
   },
   home: {
     fontSize: FontSize.size_3xs,
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   homebutton: {
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
   },
   hometab: {
@@ -49,6 +50,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_30xl,
     paddingVertical: Padding.p_lg,
     justifyContent: "center",
+    // Shadow properties
+    shadowColor: "#000", // Shadow color
+    shadowOffset: {
+      width: 0, // Horizontal distance of shadow
+      height: 2, // Vertical distance of shadow
+    },
+    shadowOpacity: 0.25, // Shadow opacity
+    shadowRadius: 3.84, // Blur radius of shadow
+    elevation: 5, // Elevation for Android
   },
 });
 
