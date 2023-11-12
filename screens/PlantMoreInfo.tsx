@@ -31,18 +31,19 @@ const PlantMoreInfo = () => {
 With its unique foliage and adaptability, it effortlessly thrives and reproduces, making it a fantastic addition to your home decor. Each Monstera type may have specific care requirements, but overall, these plants are known for their resilience and ease of care. Whether you're a seasoned plant enthusiast or just starting your indoor gardening journey, Monstera will capture your attention and elevate your indoor space with its charming presence.`}</Text>
       </View>
       <View style={[styles.plantcardbackgroundParent, styles.parentFlexBox]}>
-        <View style={styles.plantcardbackground1} />
-        <Image
-          style={styles.plantimageAIcon}
-          contentFit="cover"
-          source={require("../assets/plantimage-a.png")}
-        />
+        <View style={[styles.plantcardbackground1, styles.parentFlexBox]}>
+          {/* <Image
+            style={styles.plantMoreInfoChild}
+            contentFit="cover"
+            source={require("../assets/rectangle-627.png")}
+          /> */}
+          <Image
+            style={styles.plantimageAIcon}
+            contentFit="cover"
+            source={require("../assets/plantimage-a.png")}
+          />
+        </View>
       </View>
-      <Image
-        style={styles.plantMoreInfoChild}
-        contentFit="cover"
-        source={require("../assets/rectangle-627.png")}
-      />
     </View>
   );
 };
@@ -101,6 +102,8 @@ const styles = StyleSheet.create({
     width: 391,
     height: 350,
     zIndex: 0,
+    position: "relative",
+    marginTop: 10,
   },
   plantimageAIcon: {
     top: 36,
@@ -116,12 +119,15 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   plantMoreInfoChild: {
-    top: 0,
-    left: 2,
     width: 390,
     height: 30,
+    zIndex: 1, // higher zIndex to be on top
     position: "absolute",
+    top: "50%", // center vertically
+    left: "50%", // center horizontally
+    transform: [{ translateX: -195 }, { translateY: -15 }], // adjust for half width and height to center
   },
+
   plantMoreInfo1: {
     shadowColor: "rgba(31, 31, 31, 0.1)",
     shadowOffset: {

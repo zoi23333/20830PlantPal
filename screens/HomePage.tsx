@@ -65,12 +65,6 @@ const HomePage = () => {
           </Pressable>
         </View>
       </View>
-      <Pressable
-        style={styles.addButton1}
-        onPress={() => navigation.navigate("AddPlantPage1")}
-      >
-        <Text style={styles.add}>Add</Text>
-      </Pressable>
     </View>
   );
 };
@@ -232,22 +226,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: FontFamily.dMSans,
     fontWeight: "700",
-  },
-  addButton1: {
-    marginLeft: -25.5,
-    top: 702,
-    borderRadius: Border.br_61xl,
-    width: 51,
-    height: 51,
-    paddingHorizontal: Padding.p_lg,
-    paddingVertical: Padding.p_6xs,
-    backgroundColor: Color.colorWhitesmoke_300,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    left: "50%",
-    position: "absolute",
-    overflow: "hidden",
   },
   homePage: {
     shadowColor: "rgba(31, 31, 31, 0.1)",

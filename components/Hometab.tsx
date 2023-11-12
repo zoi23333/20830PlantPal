@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   vectorIcon1: {
     width: 26,
     height: 25,
+    marginLeft: 2,
   },
   home: {
     fontSize: FontSize.size_3xs,
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   homebutton: {
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
   },
   hometab: {
