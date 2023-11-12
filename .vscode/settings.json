@@ -1,0 +1,12 @@
+{
+  "locofyConfig": {
+    "project_name": "PlantPal",
+    "id": "6545620a1fef1e2942f55074",
+    "framework": "react-native",
+    "typescript": true,
+    "path": "assets/",
+    "componentsPath": "/Users/lx1023696171/Documents/0_DTU_study/4-Advanced Project in Digital Media engineering/Implement/PlantPal/src/components",
+    "screensPath": "/Users/lx1023696171/Documents/0_DTU_study/4-Advanced Project in Digital Media engineering/Implement/PlantPal/src/pages",
+    "project_environment": "expo_go"
+  }
+}
