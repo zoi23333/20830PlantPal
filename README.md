@@ -14,3 +14,4 @@ Note: Make sure you have installed native code dependencies [here](https://react
 
 ### Aware:
 Do not choose 'node_modules' folder and '.DS_Store' file when commiting
+Please do not change main brach directly. Creating your own branch then merge it with the main. (When commiting your branch, Do not upload 'node_modules' folder and '.DS_Store' file.)
