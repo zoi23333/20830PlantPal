@@ -15,6 +15,31 @@ import {
 const PlantDetails = () => {
   const navigation = useNavigation();
 
+  // Defining parameters for plant details depending of plant selected Assuming plant.temperature is a string lfrom the data base similar to the example
+  const temperatureText = "65°F to 80°F";
+  const humidityText = "50% to 60%";
+  const fertiliseText = "30 days";
+  const repotText = "1-2 years";
+  const waterText = "Every 7 days";
+  const lightText = "Bright Indirect Light";
+  const planttypeText = "Montsera";
+
+  //Calculate with other variables
+  const lastDateWater = new Date("2023-11-10"); // Replace this with your actual date
+  const today = new Date(); //gets the date in miliseconds
+  today.setHours(0, 0, 0, 0); //set clock to midnight to get full days difference
+  const lastwater = Math.floor(
+    (today.getTime() - lastDateWater.getTime()) / (3600 * 24 * 1000)
+  );
+
+  // Use naviagation parameters from screen of add plants to this one
+  const plantnameText = "Emily";
+  const locationText = "Copenhagen";
+  const potSizeText = "Small"; // Replace with the actual user selection
+  const plantSizeText = "Medium"; // Replace with the actual user selection
+  const drainHoleText = "Yes"; // Replace with the actual user selection
+  const lightTypeText = "Indirect Sunlight";
+
   return (
     <ScrollView
       style={styles.plantDetails}
@@ -38,9 +63,11 @@ const PlantDetails = () => {
         <View style={styles.topText}>
           <View style={[styles.frameParent, styles.return21FlexBox]}>
             <View>
-              <Text style={[styles.emily, styles.to60Typo]}>Emily</Text>
+              <Text style={[styles.emily, styles.to60Typo]}>
+                {plantnameText}
+              </Text>
               <View style={styles.monsteraParent}>
-                <Text style={styles.daysTypo1}>Monstera</Text>
+                <Text style={styles.daysTypo1}>{planttypeText}</Text>
                 <Text style={[styles.days, styles.daysTypo1]}>· 24 days</Text>
               </View>
             </View>
@@ -95,7 +122,7 @@ const PlantDetails = () => {
                         Water
                       </Text>
                       <Text style={[styles.every7Days1, styles.daysTypo]}>
-                        Every 7 days
+                        {waterText}
                       </Text>
                     </View>
                   </View>
@@ -111,8 +138,9 @@ const PlantDetails = () => {
                       </Text>
                       <Text
                         style={[styles.brightIndirectLight1, styles.daysTypo]}
-                      >{`Bright Indirect 
-Light`}</Text>
+                      >
+                        {lightText}
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -127,8 +155,9 @@ Light`}</Text>
                       <Text style={[styles.humidity, styles.waterTypo]}>
                         Humidity
                       </Text>
-                      <Text style={[styles.to60, styles.daysTypo]}>{`50% to 60% 
-`}</Text>
+                      <Text style={[styles.to60, styles.daysTypo]}>
+                        {humidityText}
+                      </Text>
                     </View>
                   </View>
                   <View style={styles.boxGroup}>
@@ -137,14 +166,20 @@ Light`}</Text>
                       contentFit="cover"
                       source={require("../assets/box2.png")}
                     />
-                    <View style={styles.light}>
+                    <View style={[styles.light, { flexWrap: "wrap" }]}>
+                      {/* 
+    The following style property 'flexWrap: 'wrap'' allows the text to wrap onto the next line
+    if it exceeds the available width, preventing the letter "e" from being on a separate line.
+    Also added a parameter called TemperatureText so that it can change according to plant type
+  */}
                       <Text style={[styles.temperature, styles.fertiliseTypo]}>
                         Temperature
                       </Text>
                       <Text
                         style={[styles.brightIndirectLight1, styles.daysTypo]}
-                      >{` 65°F to 80°F 
-`}</Text>
+                      >
+                        {temperatureText}
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -179,7 +214,7 @@ Light`}</Text>
                         Fertilise
                       </Text>
                       <Text style={[styles.days1, styles.days1Clr]}>
-                        30 days
+                        {fertiliseText}
                       </Text>
                     </View>
                   </View>
@@ -193,9 +228,9 @@ Light`}</Text>
                       <Text style={[styles.repot, styles.waterTypo]}>
                         Repot
                       </Text>
-                      <Text
-                        style={[styles.to60, styles.daysTypo]}
-                      >{`1-2 years `}</Text>
+                      <Text style={[styles.to60, styles.daysTypo]}>
+                        {repotText}
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -226,7 +261,7 @@ Light`}</Text>
                   </View>
                   <Text>Location</Text>
                 </View>
-                <Text>Copenhagen</Text>
+                <Text style={styles.profileDes}>{locationText}</Text>
               </View>
 
               <View style={styles.profileContent}>
@@ -240,7 +275,7 @@ Light`}</Text>
                   </View>
                   <Text>Light</Text>
                 </View>
-                <Text>{`Indirect Sunlight `}</Text>
+                <Text style={styles.profileDes}>{lightTypeText}</Text>
               </View>
 
               <View style={styles.profileContent}>
@@ -254,7 +289,7 @@ Light`}</Text>
                   </View>
                   <Text>Plant Size</Text>
                 </View>
-                <Text>Small</Text>
+                <Text style={styles.profileDes}>{plantSizeText}</Text>
               </View>
 
               <View style={styles.profileContent}>
@@ -268,7 +303,7 @@ Light`}</Text>
                   </View>
                   <Text>Pot Size</Text>
                 </View>
-                <Text>Small</Text>
+                <Text style={styles.profileDes}>{potSizeText}</Text>
               </View>
 
               <View style={styles.profileContent}>
@@ -282,7 +317,7 @@ Light`}</Text>
                   </View>
                   <Text>Drainage hole</Text>
                 </View>
-                <Text>Yes</Text>
+                <Text style={styles.profileDes}>{drainHoleText}</Text>
               </View>
             </View>
           </View>
@@ -290,9 +325,7 @@ Light`}</Text>
       </View>
       <Pressable
         style={[styles.return21, styles.return21FlexBox]}
-        onPress={() =>
-          navigation.navigate("BottomTabsRoot", { screen: "HomePage" })
-        }
+        onPress={() => navigation.goBack()}
       >
         <Image
           style={styles.return2Child}
@@ -300,11 +333,14 @@ Light`}</Text>
           source={require("../assets/vector-11.png")}
         />
       </Pressable>
-      <Image
-        style={[styles.plantDetailsChild, styles.groupChildPosition]}
-        contentFit="cover"
-        source={require("../assets/rectangle-627.png")}
-      />
+      {/* Wrapper ScrollView for non-scrollable content */}
+      <ScrollView nestedScrollEnabled={false}>
+        <Image
+          style={[styles.plantDetailsChild, styles.groupChildPosition]}
+          contentFit="cover"
+          source={require("../assets/rectangle-627.png")}
+        />
+      </ScrollView>
     </ScrollView>
   );
 };
@@ -854,6 +890,10 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     // Set width and height as needed, or leave as above to fill the container
+  },
+  profileDes: {
+    // color: "#444",
+    fontWeight: "500",
   },
 });
 
