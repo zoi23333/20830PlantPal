@@ -6,14 +6,15 @@ import { FontSize, FontFamily, Color, Padding } from "../GlobalStyles";
 
 const PlantMoreInfo = () => {
   const navigation = useNavigation();
+  const descriptionText =
+    "Monstera, a striking indoor plant known for its distinctive leaf structure and low-maintenance nature, is a standout choice for any indoor garden. With its unique foliage and adaptability, it effortlessly thrives and reproduces, making it a fantastic addition to your home decor. Each Monstera type may have specific care requirements, but overall, these plants are known for their resilience and ease of care. Whether you're a seasoned plant enthusiast or just starting your indoor gardening journey, Monstera will capture your attention and elevate your indoor space with its charming presence.";
+  const planttypeText = "Montsera";
 
   return (
     <View style={[styles.plantMoreInfo1, styles.iconLayout]}>
       <View style={[styles.frameParent, styles.parentFlexBox]}>
         <View style={[styles.monsteraParent, styles.parentFlexBox]}>
-          <Text
-            style={styles.monstera}
-          >{`Monstera                           `}</Text>
+          <Text style={styles.monstera}>{planttypeText}</Text>
           <Pressable
             style={styles.close}
             onPress={() => navigation.navigate("PlantDetails")}
@@ -25,10 +26,7 @@ const PlantMoreInfo = () => {
             />
           </Pressable>
         </View>
-        <Text
-          style={styles.monsteraAStriking1}
-        >{`Monstera, a striking indoor plant known for its distinctive leaf structure and low-maintenance nature, is a standout choice for any indoor garden. 
-With its unique foliage and adaptability, it effortlessly thrives and reproduces, making it a fantastic addition to your home decor. Each Monstera type may have specific care requirements, but overall, these plants are known for their resilience and ease of care. Whether you're a seasoned plant enthusiast or just starting your indoor gardening journey, Monstera will capture your attention and elevate your indoor space with its charming presence.`}</Text>
+        <Text style={styles.monsteraAStriking1}>{descriptionText}</Text>
       </View>
       <View style={[styles.plantcardbackgroundParent, styles.parentFlexBox]}>
         <View style={[styles.plantcardbackground1, styles.parentFlexBox]}>
