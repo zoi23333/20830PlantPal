@@ -114,7 +114,7 @@ const lightTypeText= "Indirect Sunlight";
               <Text style={styles.guides}>Guides</Text>
               <Pressable
                 style={styles.more1}
-                onPress={() => navigation.navigate("PlantMoreInfo")}
+                onPress={() => navigation.navigate("PlantMoreInfo",{ plantType })}
               >
                 <Text style={[styles.more2, styles.more2Typo]}>More</Text>
               </Pressable>
