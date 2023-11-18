@@ -7,7 +7,10 @@ import { getPlantInfo } from '../Database';
 
 const PlantMoreInfo = () => {
   const navigation = useNavigation();
-  const plantType = "Orchid"; // Set the plant type to "Orchid"
+  //get the plant type from the previous page --> PlantDetails 
+  const route = useRoute();
+  const { plantType } = route.params;
+  
   const plantInfo = getPlantInfo(plantType);
 
   if (!plantInfo) {
