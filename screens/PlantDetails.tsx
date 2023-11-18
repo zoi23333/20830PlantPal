@@ -11,35 +11,45 @@ import {
   Pressable,
   Dimensions,
 } from "react-native";
+import { getPlantInfo } from '../path-to-Database';
 
 const PlantDetails = () => {
   const navigation = useNavigation();
+  const plantType = "Orchid"; // Set the plant type to "Orchid"
+  const plantInfo = getPlantInfo(plantType);
+
+  if (!plantInfo) {
+    return (
+      <View>
+        <Text>Plant information not found</Text>
+      </View>
+    );
+  }
 
   // Defining parameters for plant details depending of plant selected Assuming plant.temperature is a string lfrom the data base similar to the example
-  const temperatureText = "65°F to 80°F";
-  const humidityText = "50% to 60%";
-  const fertiliseText = "30 days";
-  const repotText = "1-2 years";
-  const waterText = "Every 7 days";
-  const lightText = "Bright Indirect Light";
-  const planttypeText = "Montsera";
+const temperatureText = plantInfo.temperature;
+const humidityText = plantInfo.humidity;
+const fertiliseText = plantInfo.fertilizingDays;
+const repotText = plantInfo.repotting;
+const waterText = plantInfo.wateringDays;
+const lightText = plantInfo.fertilizingDays;
+const planttypeText = plantInfo.name;
 
-  //Calculate with other variables
-  const lastDateWater = new Date("2023-11-10"); // Replace this with your actual date
-  const today = new Date(); //gets the date in miliseconds
-  today.setHours(0, 0, 0, 0); //set clock to midnight to get full days difference
-  const lastwater = Math.floor(
-    (today.getTime() - lastDateWater.getTime()) / (3600 * 24 * 1000)
-  );
+//Calculate with other variables  
+const lastDateWater = new Date('2023-11-10'); // Replace this with your actual date
+const today = new Date();//gets the date in miliseconds 
+today.setHours(0, 0, 0, 0); //set clock to midnight to get full days difference
+const lastwater = Math.floor((today.getTime() - lastDateWater.getTime())/(3600*24*1000); 
 
-  // Use naviagation parameters from screen of add plants to this one
-  const plantnameText = "Emily";
-  const locationText = "Copenhagen";
-  const potSizeText = "Small"; // Replace with the actual user selection
-  const plantSizeText = "Medium"; // Replace with the actual user selection
-  const drainHoleText = "Yes"; // Replace with the actual user selection
-  const lightTypeText = "Indirect Sunlight";
+// Use naviagation parameters from screen of add plants to this one
+const plantnameText = "Emily";
+const locationText = "Copenhagen"; 
+const potSizeText = "Small"; // Replace with the actual user selection
+const plantSizeText = "Medium"; // Replace with the actual user selection
+const drainHoleText = "Yes"; // Replace with the actual user selection
+const lightTypeText= "Indirect Sunlight"; 
 
+  
   return (
     <ScrollView
       style={styles.plantDetails}
