@@ -11,7 +11,8 @@ import {
   Pressable,
   Dimensions,
 } from "react-native";
-import { getPlantInfo } from '../path-to-Database';
+//Correct the path (dots supposedly move up a level)
+import { getPlantInfo } from '../Database';
 
 const PlantDetails = () => {
   const navigation = useNavigation();
