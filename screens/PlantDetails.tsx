@@ -29,10 +29,10 @@ const PlantDetails = () => {
   // Defining parameters for plant details depending of plant selected Assuming plant.temperature is a string lfrom the data base similar to the example
 const temperatureText = plantInfo.temperature;
 const humidityText = plantInfo.humidity;
-const fertiliseText = plantInfo.fertilizingDays;
+const fertiliseText = plantInfo.fertilizingDays + " days";
 const repotText = plantInfo.repotting;
-const waterText = plantInfo.wateringDays;
-const lightText = plantInfo.fertilizingDays;
+const waterText = plantInfo.wateringDays + " days";
+const lightText = plantInfo.light;
 const planttypeText = plantInfo.name;
 
 //Calculate with other variables  
