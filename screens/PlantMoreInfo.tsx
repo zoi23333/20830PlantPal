@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Text, StyleSheet, Pressable, View } from "react-native";
 import { Image } from "expo-image";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { FontSize, FontFamily, Color, Padding } from "../GlobalStyles";
 import { getPlantInfo } from '../Database';
 
