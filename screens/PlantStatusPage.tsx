@@ -6,9 +6,13 @@ import { useNavigation } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
 
 const PlantStatusPage = () => {
-  const [waterAmountButtonVisible, setWaterAmountButtonVisible] =
-    useState(false);
+  const [waterAmountButtonVisible, setWaterAmountButtonVisible] = useState(false);
+  const [isWatered, setIsWatered] = useState(false);
+  const [lastWateredDate, setLastWateredDate] = useState<Date | null>(null);
+  const [plantImage, setPlantImage] = useState(require("../assets/painting1.png"));
+  const [statusText, setStatusText] = useState("Have you watered your Fiddle-leaf fig today?");
   const navigation = useNavigation();
+
 
   const openWaterAmountButton = useCallback(() => {
     setWaterAmountButtonVisible(true);
@@ -17,6 +21,13 @@ const PlantStatusPage = () => {
   const closeWaterAmountButton = useCallback(() => {
     setWaterAmountButtonVisible(false);
   }, []);
+
+  const handleYesButtonPress = () => {
+    setIsWatered(true);
+    setLastWateredDate(new Date());
+    setPlantImage(require('../assets/AlreadyWatered.png'));
+    setStatusText("There are no plant care tasks to attend to today!");
+  };
 
   return (
     <>
@@ -39,19 +50,15 @@ const PlantStatusPage = () => {
                 ]}
               >
                 <Text style={styles.youreAlmostThereContainer1}>
-                  <Text
-                    style={styles.haveYouWatered}
-                  >{`Have you watered your `}</Text>
-                  <Text style={styles.fiddleTypo}>Fiddle-leaf fig</Text>
-                  <Text style={styles.haveYouWatered}> today?</Text>
+                 <Text style={styles.haveYouWatered}>{statusText}</Text>
                 </Text>
               </Text>
               <Image
                 style={styles.painting1Icon}
                 contentFit="cover"
-                source={require("../assets/painting1.png")}
+                source={plantImage}
               />
-              <Pressable style={styles.yesButton1}>
+              <Pressable onPress={handleYesButtonPress} style={[styles.yesButton1, { display: isWatered ? 'none' : 'flex' }]}>
                 <Text style={[styles.yes, styles.yesTypo]}>Yes</Text>
               </Pressable>
             </View>

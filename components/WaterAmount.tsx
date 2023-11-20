@@ -4,10 +4,13 @@ import { Image } from "expo-image";
 import { Border, Color, FontSize, FontFamily, Padding } from "../GlobalStyles";
 
 type WaterAmountType = {
-  onClose?: () => void;
+  onClose: () => void;
 };
 
 const WaterAmount = ({ onClose }: WaterAmountType) => {
+  const handleOkPress = () => {
+    onClose(); // Close the modal
+  };
   return (
     <View style={[styles.wateramount, styles.button1Layout]}>
       <View style={[styles.wateramountInner, styles.rectangleParentPosition]}>
@@ -41,7 +44,7 @@ const WaterAmount = ({ onClose }: WaterAmountType) => {
                 </View>
               </View>
             </View>
-            <Pressable style={[styles.button1, styles.youreFlexBox]}>
+            <Pressable onPress={handleOkPress} style={[styles.button1, styles.youreFlexBox]}>
               <Text style={styles.okISee}>OK, I see</Text>
             </Pressable>
           </View>
