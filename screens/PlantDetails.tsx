@@ -14,6 +14,20 @@ import {
 //Correct the path (dots supposedly move up a level)
 import { getPlantInfo } from '../Database';
 
+const plantTypeToImage = {
+  "Snake Plant": "snakePlant1.png",
+  "Spider Plant": "Spiderplant2.png",
+  "Pothos": "pothosplant3.png",
+  "Peace Lily": "PeacyLilly4.png",
+  "Aloe Vera": "aloever5.png",
+  "ZZ Plant": "zzplant6.png",
+  "Rubber Plant": "rubberplant7.png",
+  "Jade Plant": "jadeplant8.png",
+  "Boston Fern": "boston9.png",
+  "Orchid": "orchid10.png",
+  "Imaginary Fern": "imaginary11.png",
+};
+
 const PlantDetails = () => {
   const navigation = useNavigation();
   const plantType = "Orchid"; // Set the plant type to "Orchid"
@@ -26,6 +40,17 @@ const PlantDetails = () => {
       </View>
     );
   }
+  
+ const imageName = plantTypeToImage[plantType];
+  if (!imageName) {
+    // Handle the case where there is no mapping for the plant type
+    return (
+      <View>
+        <Text>Image not found for {plantType}</Text>
+      </View>
+    );
+  }
+ const imageSource = require(`../assets/${imageName}`);
 
   // Defining parameters for plant details depending of plant selected Assuming plant.temperature is a string lfrom the data base similar to the example
 const temperatureText = plantInfo.temperature;
@@ -63,7 +88,7 @@ const lightTypeText= "Indirect Sunlight";
         <Image
           style={[styles.plantimageAIcon, styles.iconPosition]}
           contentFit="cover"
-          source={require("../assets/plantimage-a.png")}
+          source={imageSource} //get from source
         />
         <View style={[styles.rectangleParent, styles.parentPosition]}>
           <View style={[styles.groupChild, styles.groupChildPosition]} />
