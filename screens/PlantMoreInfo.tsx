@@ -7,9 +7,9 @@ import { getPlantInfo } from '../Database';
 
 const plantTypeToImage = {
   "Snake Plant": "snakePlant1.png",
-  "Spider Plant": "spider-plant2.png",
+  "Spider Plant": "Spiderplant2.png",
   "Pothos": "pothosplant3.png",
-  "Peace Lily": "PeaceLilly4.png",
+  "Peace Lily": "PeacyLilly4.png",
   "Aloe Vera": "aloever5.png",
   "ZZ Plant": "zzplant6.png",
   "Rubber Plant": "rubberplant7.png",
