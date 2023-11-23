@@ -1,11 +1,17 @@
 import * as React from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Image } from "expo-image";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
 
 const HomePage = () => {
   const navigation = useNavigation();
+
+  const route = useRoute();
+
+  const plantDataAll = route.params?.combinedData;
+
+  console.log("Date at HomePage:", plantDataAll);
 
   return (
     <View style={[styles.homePage, styles.iconLayout]}>
@@ -26,10 +32,6 @@ const HomePage = () => {
         </View>
         <View style={[styles.myPlantsParent, styles.myPlantsParentSpaceBlock]}>
           <Text style={[styles.myPlants, styles.myPlantsTypo]}>My Plants</Text>
-          <View style={[styles.plantParent, styles.parentFlexBox]}>
-            <Text style={styles.siteTypo}>1 plant</Text>
-            <Text style={[styles.site, styles.siteTypo]}>· 1 site</Text>
-          </View>
         </View>
         <View style={[styles.plantcontainer, styles.myPlantsParentSpaceBlock]}>
           <Pressable

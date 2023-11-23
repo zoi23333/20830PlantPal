@@ -1,14 +1,114 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Image } from "expo-image";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { FontFamily, Color, FontSize, Border, Padding } from "../GlobalStyles";
+import RadioButton from "../components/RadioButton";
 
-const AddPlantPage3 = () => {
+type RadioOption = {
+  label: string | JSX.Element;
+  value: string;
+};
+
+const AddPlantPage3: React.FC = () => {
   const navigation = useNavigation();
+  // Get value from last page
+  const route = useRoute();
+
+  const plantDataFromPage2 = route.params?.plantData2;
+
+  const handleSavePress = () => {
+    // Combine all data (from Page1, Page2, and Page3)
+    const combinedData = {
+      ...plantDataFromPage2,
+      plantsize: plantsizeOption,
+      potsize: potOption,
+    };
+
+    // Navigate to AddedDataPage with the combined data
+    navigation.navigate("BottomTabsRoot", {
+      screen: "HomePage",
+      params: { combinedData },
+    });
+
+    console.log(combinedData);
+  };
+
+  const [plantsizeOption, setplantsizeOption] = useState<string | null>(null);
+
+  const plantsizeOptions: RadioOption[] = [
+    {
+      label: (
+        <Text>
+          <View style={styles.boldText}>Small</View>
+          {"\n"}
+          <Text style={styles.normalText}>Up to 30 cm or 12 inches</Text>
+        </Text>
+      ),
+      value: "smallplant",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.boldText}>Medium</View>
+          {"\n"}
+          <Text style={styles.normalText}>
+            30 cm to 90 cm or 12 inches to 36 inches
+          </Text>
+        </Text>
+      ),
+      value: "mediumplant",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.boldText}>Large</View>
+          {"\n"}
+          <Text style={styles.normalText}>Over 90 cm or 36 inches</Text>
+        </Text>
+      ),
+      value: "largeplant",
+    },
+  ];
+
+  const [potOption, setpotOption] = useState<string | null>(null);
+  const potOptions: RadioOption[] = [
+    {
+      label: (
+        <Text>
+          <View style={styles.boldText}>Small</View>
+          {"\n"}
+          <Text style={styles.normalText}>Up to 15 cm or 6 inchess</Text>
+        </Text>
+      ),
+      value: "smallpot",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.boldText}>Medium</View>
+          {"\n"}
+          <Text style={styles.normalText}>
+            15 cm to 30 cm or 6 inches to 12 inches
+          </Text>
+        </Text>
+      ),
+      value: "mediumpot",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.boldText}>Large</View>
+          {"\n"}
+          <Text style={styles.normalText}>Over 30 cm or 12 inches</Text>
+        </Text>
+      ),
+      value: "largepot",
+    },
+  ];
 
   return (
-    <View style={[styles.addPlantPage31, styles.iconLayout]}>
+    <View style={styles.addPlantPage31}>
       <View style={styles.mainContent}>
         <View style={styles.topFlexBox}>
           <Pressable
@@ -16,7 +116,7 @@ const AddPlantPage3 = () => {
             onPress={() => navigation.navigate("AddPlantPage2")}
           >
             <Image
-              style={[styles.icon, styles.iconLayout]}
+              style={styles.icon}
               contentFit="cover"
               source={require("../assets/return.png")}
             />
@@ -25,157 +125,63 @@ const AddPlantPage3 = () => {
             Add your plant
           </Text>
         </View>
-        <View style={styles.questions}>
-          <View style={styles.pleaseSelectTheSizeCategorParent}>
+        <View style={styles.Icontent}>
+          <View style={styles.questionWrapper}>
             <Text
-              style={[styles.pleaseSelectThe1, styles.pleaseTypo]}
-            >{`Please select the size category that best 
-describes your plant`}</Text>
-            <View style={[styles.groupParent, styles.groupParentLayout]}>
-              <View style={[styles.frameParent, styles.groupFrameLayout]}>
-                <View style={styles.rectangleParentPosition}>
-                  <View style={[styles.frameChild, styles.rectangleLayout]} />
-                  <View style={styles.upTo30CmOr12InchesParent}>
-                    <Text style={[styles.upTo301, styles.upTo301Clr]}>
-                      Up to 30 cm or 12 inches
-                    </Text>
-                    <Text style={[styles.small, styles.smallTypo]}>Small</Text>
-                  </View>
-                </View>
-                <Image
-                  style={[styles.groupChild, styles.mediumPosition]}
-                  contentFit="cover"
-                  source={require("../assets/ellipse-249.png")}
-                />
-              </View>
-              <View style={[styles.frameGroup, styles.groupFrameLayout]}>
-                <View style={styles.rectangleParentPosition}>
-                  <View style={[styles.frameChild, styles.rectangleLayout]} />
-                  <View
-                    style={[
-                      styles.cmTo90CmOr12InchesTo36Parent,
-                      styles.or6ParentPosition,
-                    ]}
+              style={styles.question}
+            >{`Please select the size category that best describes your plant`}</Text>
+            <View style={styles.optionWapper}>
+              {plantsizeOptions.map((option) => (
+                <View style={styles.AnswerBackground}>
+                  <Pressable
+                    key={option.value}
+                    style={styles.radioOption}
+                    onPress={() => setplantsizeOption(option.value)}
                   >
-                    <Text style={[styles.cmTo901, styles.upTo301Clr]}>
-                      30 cm to 90 cm or 12 inches to 36 inches
-                    </Text>
-                    <Text style={[styles.medium, styles.mediumPosition]}>
-                      Medium
-                    </Text>
-                  </View>
+                    <View
+                      style={[
+                        styles.circle,
+                        plantsizeOption === option.value &&
+                          styles.selectedCircle,
+                      ]}
+                    />
+                    <Text style={styles.radioLabel}>{option.label}</Text>
+                  </Pressable>
                 </View>
-                <Image
-                  style={[styles.groupChild, styles.mediumPosition]}
-                  contentFit="cover"
-                  source={require("../assets/ellipse-249.png")}
-                />
-              </View>
-              <View style={[styles.groupView, styles.groupFrameLayout]}>
-                <View style={styles.rectangleParentPosition}>
-                  <View style={[styles.frameChild, styles.rectangleLayout]} />
-                  <View
-                    style={[
-                      styles.over90CmOr36InchesParent,
-                      styles.or6ParentPosition,
-                    ]}
-                  >
-                    <Text style={[styles.cmTo901, styles.upTo301Clr]}>
-                      Over 90 cm or 36 inches
-                    </Text>
-                    <Text
-                      style={[styles.medium, styles.mediumPosition]}
-                    >{`Large `}</Text>
-                  </View>
-                </View>
-                <Image
-                  style={[styles.groupChild, styles.mediumPosition]}
-                  contentFit="cover"
-                  source={require("../assets/ellipse-249.png")}
-                />
-              </View>
+              ))}
             </View>
           </View>
-          <View style={styles.pleaseChooseTheSizeCategorParent}>
-            <Text style={[styles.pleaseChooseThe1, styles.pleaseTypo]}>
+
+          <View style={styles.questionWrapper2}>
+            <Text style={styles.question}>
               Please choose the size category of the pot diameter
             </Text>
-            <View style={[styles.groupParent1, styles.groupParentLayout]}>
-              <View style={[styles.frameParent, styles.groupFrameLayout]}>
-                <View style={[styles.rectangleParent1, styles.rectangleLayout]}>
-                  <View
-                    style={[styles.rectangleView, styles.rectangleLayout]}
-                  />
-                  <View
-                    style={[
-                      styles.upTo15CmOr6InchesParent,
-                      styles.or6ParentPosition,
-                    ]}
+            <View style={styles.optionWapper}>
+              {potOptions.map((option) => (
+                <View style={styles.AnswerBackground}>
+                  <Pressable
+                    key={option.value}
+                    style={styles.radioOption}
+                    onPress={() => setpotOption(option.value)}
                   >
-                    <Text style={[styles.cmTo901, styles.upTo301Clr]}>
-                      Up to 15 cm or 6 inches
-                    </Text>
-                    <Text style={[styles.medium, styles.mediumPosition]}>
-                      Small
-                    </Text>
-                  </View>
+                    <View
+                      style={[
+                        styles.circle,
+                        potOption === option.value && styles.selectedCircle,
+                      ]}
+                    />
+                    <Text style={styles.radioLabel}>{option.label}</Text>
+                  </Pressable>
                 </View>
-                <Image
-                  style={[styles.groupChild, styles.mediumPosition]}
-                  contentFit="cover"
-                  source={require("../assets/ellipse-249.png")}
-                />
-              </View>
-              <View style={[styles.frameGroup, styles.groupFrameLayout]}>
-                <View style={[styles.rectangleParent1, styles.rectangleLayout]}>
-                  <View
-                    style={[styles.rectangleView, styles.rectangleLayout]}
-                  />
-                  <View
-                    style={[
-                      styles.cmTo30CmOr6InchesTo12Parent,
-                      styles.or6ParentPosition,
-                    ]}
-                  >
-                    <Text style={[styles.cmTo901, styles.upTo301Clr]}>
-                      15 cm to 30 cm or 6 inches to 12 inches
-                    </Text>
-                    <Text style={[styles.medium, styles.mediumPosition]}>
-                      Medium
-                    </Text>
-                  </View>
-                </View>
-                <Image
-                  style={[styles.groupChild, styles.mediumPosition]}
-                  contentFit="cover"
-                  source={require("../assets/ellipse-249.png")}
-                />
-              </View>
-              <View style={[styles.groupView, styles.groupFrameLayout]}>
-                <View style={[styles.rectangleParent1, styles.rectangleLayout]}>
-                  <View
-                    style={[styles.rectangleView, styles.rectangleLayout]}
-                  />
-                  <Text style={[styles.over30Cm1, styles.large1Typo]}>
-                    Over 30 cm or 12 inches
-                  </Text>
-                  <Text
-                    style={[styles.large1, styles.large1Typo]}
-                  >{`Large `}</Text>
-                </View>
-                <Image
-                  style={[styles.groupChild, styles.mediumPosition]}
-                  contentFit="cover"
-                  source={require("../assets/ellipse-249.png")}
-                />
-              </View>
+              ))}
             </View>
           </View>
           <Pressable
             style={[styles.save1, styles.topFlexBox]}
-            onPress={() =>
-              navigation.navigate("BottomTabsRoot", { screen: "HomePage" })
-            }
+            onPress={() => {
+              handleSavePress();
+              // navigation.navigate("HomePage");
+            }}
           >
             <Text style={[styles.save2, styles.save2Typo]}>Save</Text>
           </Pressable>
@@ -186,10 +192,10 @@ describes your plant`}</Text>
 };
 
 const styles = StyleSheet.create({
-  iconLayout: {
-    overflow: "hidden",
-    width: "100%",
-  },
+  // iconLayout: {
+  //   overflow: "hidden",
+  //   width: "100%",
+  // },
   save2Typo: {
     textAlign: "center",
     fontFamily: FontFamily.dMSans,
@@ -200,26 +206,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontFamily: FontFamily.dMSans,
   },
-  groupParentLayout: {
-    height: 215,
-    left: 0,
-    width: 322,
-    position: "absolute",
-  },
-  groupFrameLayout: {
-    height: 65,
-    left: 0,
-    width: 322,
-    position: "absolute",
-  },
-  rectangleLayout: {
-    width: 302,
-    height: 65,
-  },
-  upTo301Clr: {
-    color: Color.colorDimgray_200,
-    fontSize: FontSize.size_xs,
-  },
+
   smallTypo: {
     left: "0%",
     textAlign: "left",
@@ -245,8 +232,9 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   topFlexBox: {
-    alignItems: "center",
     flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
   },
   icon: {
     height: "100%",
@@ -291,16 +279,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_sm,
     color: Color.colorDarkslategray,
   },
-  upTo30CmOr12InchesParent: {
-    height: "61.54%",
-    width: "46.36%",
-    top: "20%",
-    right: "48.68%",
-    bottom: "18.46%",
-    left: "4.97%",
-    zIndex: 1,
-    position: "absolute",
-  },
+
   rectangleParentPosition: {
     left: 20,
     top: 0,
@@ -314,14 +293,7 @@ const styles = StyleSheet.create({
   frameParent: {
     top: 0,
   },
-  cmTo901: {
-    top: 24,
-    left: 0,
-    position: "absolute",
-    textAlign: "left",
-    fontWeight: "500",
-    fontFamily: FontFamily.dMSans,
-  },
+
   medium: {
     textAlign: "left",
     fontWeight: "500",
@@ -416,24 +388,96 @@ const styles = StyleSheet.create({
   questions: {
     marginTop: 20,
   },
+
   mainContent: {
-    marginLeft: -161,
-    top: 66,
-    left: "50%",
-    position: "absolute",
+    top: 69,
+    alignItems: "center",
+    paddingLeft: 2,
+    paddingRight: 2,
   },
+
+  Icontent: {
+    width: "100%",
+  },
+
   addPlantPage31: {
     backgroundColor: Color.colorWhite,
-    shadowColor: "rgba(31, 31, 31, 0.1)",
-    shadowOffset: {
-      width: 0,
-      height: 60,
-    },
-    shadowRadius: 140,
-    elevation: 140,
-    shadowOpacity: 1,
     flex: 1,
-    height: 844,
+    alignItems: "center",
+  },
+
+  // style for options
+  question: {
+    fontFamily: FontFamily.dMSans,
+    fontSize: 14,
+    marginBottom: 0,
+  },
+  questionWrapper: {
+    // marginTop: 30,
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
+    alignContent: "center",
+    width: "100%",
+    marginTop: 35,
+  },
+
+  questionWrapper2: {
+    // marginTop: 30,
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
+    alignContent: "center",
+    width: "100%",
+    marginTop: 10,
+  },
+
+  boldText: {
+    fontSize: 14,
+    fontFamily: FontFamily.dMSans,
+    fontWeight: "500",
+    marginBottom: 5,
+  },
+
+  normalText: {
+    fontSize: 12,
+    fontFamily: FontFamily.dMSans,
+    color: "#555",
+  },
+  optionWapper: {},
+
+  AnswerBackground: {
+    backgroundColor: "#f6f6f6",
+    width: "100%",
+    height: "auto",
+    paddingLeft: 15,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+    marginBottom: 10,
+    borderRadius: 6,
+  },
+
+  radioOption: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 8,
+  },
+  circle: {
+    height: 14,
+    width: 14,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#4B8364",
+    marginRight: 13,
+  },
+  selectedCircle: {
+    backgroundColor: "#4B8364",
+    borderColor: "#6CAE39",
+  },
+  radioLabel: {
+    fontSize: 14,
+    fontFamily: FontFamily.dMSans,
   },
 });
 
