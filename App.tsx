@@ -8,7 +8,7 @@ import PlantDetails from "./screens/PlantDetails";
 import PlantStatusPage from "./screens/PlantStatusPage";
 import AddPlantPage3 from "./screens/AddPlantPage3";
 import AddPlantPage2 from "./screens/AddPlantPage2";
-import AddPlantPage1 from "./components/AddPlantPage1";
+import AddPlantPage1 from "./screens/AddPlantPage1";
 import HomePage from "./screens/HomePage";
 import ManualChooseSchedule from "./screens/ManualChooseSchedule";
 import Schedulemethod from "./screens/Schedulemethod";
@@ -33,60 +33,6 @@ import {
 } from "react-native";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import "./css/style.css";
-
-// const Tab = createBottomTabNavigator();
-// function BottomTabsRoot({ navigation }: any) {
-//   const [bottomTabItemsNormal] = React.useState([<Hometab />, <Statustab />]);
-//   const [bottomTabItemsActive] = React.useState([<Hometab1 />, <Statustab1 />]);
-//   return (
-//     <Tab.Navigator
-//       screenOptions={{ headerShown: false }}
-//       tabBar={({ state, descriptors, navigation }: any) => {
-//         const activeIndex = state.index;
-//         return (
-//           <View
-//             style={{
-//               width: 390,
-//               height: 88,
-//               flexDirection: "row",
-//             }}
-//           >
-//             {bottomTabItemsNormal.map((item: any, index: any) => {
-//               const isFocused = state.index === index;
-//               return (
-//                 <Pressable
-//                   key={index}
-//                   onPress={() => {
-//                     navigation.navigate({
-//                       name: state.routes[index].name,
-//                       merge: true,
-//                     });
-//                   }}
-//                 >
-//                   {activeIndex === index
-//                     ? bottomTabItemsActive[index] || item
-//                     : item}
-//                 </Pressable>
-//               );
-//             })}
-//           </View>
-//         );
-//       }}
-//     >
-//       <Tab.Screen
-//         name="HomePage"
-//         component={HomePage}
-//         options={{ headerShown: false }}
-//       />
-//       <Tab.Screen
-//         name="PlantStatusPage"
-//         component={PlantStatusPage}
-//         options={{ headerShown: false }}
-//       />
-//     </Tab.Navigator>
-//   );
-// }
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
@@ -155,6 +101,7 @@ const App = () => {
                 component={AddPlantPage1}
                 options={{ headerShown: false }}
               />
+
               <Stack.Screen
                 name="ManualChooseSchedule"
                 component={ManualChooseSchedule}
