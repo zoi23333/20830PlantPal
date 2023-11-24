@@ -11,18 +11,58 @@ import {
   Pressable,
   Dimensions,
 } from "react-native";
+import { ScreenWidth } from "@rneui/base";
+
+//Correct the path (dots supposedly move up a level)
+import { getPlantInfo } from "../Database";
+
+const plantTypeToImage = {
+  "Snake Plant": "snakePlant1.png",
+  "Spider Plant": "Spiderplant2.png",
+  Pothos: "pothosplant3.png",
+  "Peace Lily": "PeacyLilly4.png",
+  "Aloe Vera": "aloever5.png",
+  "ZZ Plant": "zzplant6.png",
+  "Rubber Plant": "rubberplant7.png",
+  "Jade Plant": "jadeplant8.png",
+  "Boston Fern": "boston9.png",
+  Orchid: "orchid10.png",
+  "Imaginary Fern": "imaginary11.png",
+};
 
 const PlantDetails = () => {
   const navigation = useNavigation();
 
+  const plantType = "Orchid"; // Set the plant type to "Orchid"
+  const plantInfo = getPlantInfo(plantType);
+
+  if (!plantInfo) {
+    return (
+      <View>
+        <Text>Plant information not found</Text>
+      </View>
+    );
+  }
+
+  const imageName = plantTypeToImage[plantType];
+  if (!imageName) {
+    // Handle the case where there is no mapping for the plant type
+    return (
+      <View>
+        <Text>Image not found for {plantType}</Text>
+      </View>
+    );
+  }
+  const imageSource = require(`../assets/${imageName}`);
+
   // Defining parameters for plant details depending of plant selected Assuming plant.temperature is a string lfrom the data base similar to the example
-  const temperatureText = "65°F to 80°F";
-  const humidityText = "50% to 60%";
-  const fertiliseText = "30 days";
-  const repotText = "1-2 years";
-  const waterText = "Every 7 days";
-  const lightText = "Bright Indirect Light";
-  const planttypeText = "Montsera";
+  const temperatureText = plantInfo.temperature;
+  const humidityText = plantInfo.humidity;
+  const fertiliseText = plantInfo.fertilizingDays + " days";
+  const repotText = plantInfo.repotting;
+  const waterText = plantInfo.wateringDays + " days";
+  const lightText = plantInfo.light;
+  const planttypeText = plantInfo.name;
 
   //Calculate with other variables
   const lastDateWater = new Date("2023-11-10"); // Replace this with your actual date
@@ -52,7 +92,7 @@ const PlantDetails = () => {
         <Image
           style={[styles.plantimageAIcon, styles.iconPosition]}
           contentFit="cover"
-          source={require("../assets/plantimage-a.png")}
+          source={imageSource}
         />
         <View style={[styles.rectangleParent, styles.parentPosition]}>
           <View style={[styles.groupChild, styles.groupChildPosition]} />
@@ -103,7 +143,9 @@ const PlantDetails = () => {
               <Text style={styles.guides}>Guides</Text>
               <Pressable
                 style={styles.more1}
-                onPress={() => navigation.navigate("PlantMoreInfo")}
+                onPress={() =>
+                  navigation.navigate("PlantMoreInfo", { plantType })
+                }
               >
                 <Text style={[styles.more2, styles.more2Typo]}>More</Text>
               </Pressable>
@@ -456,7 +498,7 @@ const styles = StyleSheet.create({
   },
   plantcardbackground1: {
     backgroundColor: Color.khaki,
-    width: 391,
+    width: ScreenWidth,
     height: 350,
     zIndex: 0,
   },
@@ -820,6 +862,7 @@ const styles = StyleSheet.create({
     left: 20,
     height: 864,
     alignItems: "center",
+    // width: ScreenWidth,
   },
   return2Child: {
     borderRadius: Border.br_11xs,
@@ -837,7 +880,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   plantDetailsChild: {
-    width: 390,
+    width: screenWidth,
     height: 30,
     left: 0,
   },

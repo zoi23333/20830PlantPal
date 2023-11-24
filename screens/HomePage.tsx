@@ -1,11 +1,46 @@
 import * as React from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Image } from "expo-image";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomePage = () => {
   const navigation = useNavigation();
+
+  const route = useRoute();
+
+  const storeData = async (newData) => {
+    try {
+      // Retrieve existing data
+      const existingData = await AsyncStorage.getItem("plantDataStorage");
+      let newDataArray = JSON.parse(existingData);
+
+      if (!newDataArray) {
+        newDataArray = []; // If no existing data, create a new array
+      }
+
+      // Append new data
+      newDataArray.push(newData);
+
+      // Save updated data array
+      await AsyncStorage.setItem(
+        "plantDataStorage",
+        JSON.stringify(newDataArray)
+      );
+    } catch (e) {
+      console.error("Failed to save the data to AsyncStorage", e);
+    }
+  };
+
+  const plantDataAll = route.params?.combinedData;
+
+  console.log("Date at HomePage:", plantDataAll);
+
+  if (plantDataAll) {
+    console.log("Data at HomePage:", plantDataAll);
+    storeData(plantDataAll);
+  }
 
   return (
     <View style={[styles.homePage, styles.iconLayout]}>
@@ -26,10 +61,6 @@ const HomePage = () => {
         </View>
         <View style={[styles.myPlantsParent, styles.myPlantsParentSpaceBlock]}>
           <Text style={[styles.myPlants, styles.myPlantsTypo]}>My Plants</Text>
-          <View style={[styles.plantParent, styles.parentFlexBox]}>
-            <Text style={styles.siteTypo}>1 plant</Text>
-            <Text style={[styles.site, styles.siteTypo]}>· 1 site</Text>
-          </View>
         </View>
         <View style={[styles.plantcontainer, styles.myPlantsParentSpaceBlock]}>
           <Pressable
