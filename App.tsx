@@ -14,6 +14,7 @@ import ManualChooseSchedule from "./screens/ManualChooseSchedule";
 import Schedulemethod from "./screens/Schedulemethod";
 import Geolocation1 from "./screens/Geolocation1";
 import WelcomeScreen from "./screens/WelcomeScreen";
+import Notifications from "./screens/Notifications";
 import Hometab1 from "./components/Hometab1";
 import Hometab from "./components/Hometab";
 import Statustab1 from "./components/Statustab1";
@@ -74,6 +75,12 @@ const App = () => {
               <Stack.Screen
                 name="Setting"
                 component={Setting}
+                options={{ headerShown: false }}
+              />
+
+              <Stack.Screen
+                name="Notifications"
+                component={Notifications}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
