@@ -392,8 +392,8 @@ const styles = StyleSheet.create({
   mainContent: {
     top: 69,
     alignItems: "center",
-    paddingLeft: 2,
-    paddingRight: 2,
+    // paddingLeft: 2,
+    // paddingRight: 2,
   },
 
   Icontent: {

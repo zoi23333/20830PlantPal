@@ -1,3 +1,5 @@
+//Create an struct to store the plant Data
+
 export const plantData = [
   {
     name: "Snake Plant",
@@ -48,7 +50,7 @@ export const plantData = [
     description:
       "Aloe Vera, known for its soothing gel, is a sun-loving succulent that adds a touch of natural healing to your indoor oasis. With fleshy leaves that store water, it thrives in bright light conditions. Whether you're an experienced plant enthusiast or just starting your indoor gardening journey, the Aloe Vera's unique charm and healing properties will bring a refreshing energy to your home.",
     wateringDays: 18,
-    fertilizingDays: "Monthly",
+    fertilizingDays: 30,
     temperature: "21-26°C",
     humidity: "30-40%",
     light: "Bright",
@@ -59,7 +61,7 @@ export const plantData = [
     description:
       "The ZZ Plant, with its glossy, dark green leaves, is a hardy and stylish choice for indoor spaces. Known for its resilience in low to moderate light, it effortlessly complements any decor style. Whether you're an experienced plant enthusiast or a beginner, the ZZ Plant's timeless appeal and low-maintenance nature make it a perfect addition to your indoor haven, enhancing the aesthetic of your living space.",
     wateringDays: 19,
-    fertilizingDays: "Monthly",
+    fertilizingDays: 30,
     temperature: "16-24°C",
     humidity: "40-50%",
     light: "Low to Moderate",
@@ -70,7 +72,7 @@ export const plantData = [
     description:
       "The Rubber Plant, with its broad, glossy leaves, is a classic choice that adds a touch of sophistication to indoor spaces. Recognized for its air-purifying qualities, it thrives in moderate to bright light conditions. Whether you're a seasoned plant enthusiast or a novice, the Rubber Plant's enduring beauty and easy care make it an excellent choice for enhancing the ambiance of your indoor sanctuary.",
     wateringDays: 9,
-    fertilizingDays: "Monthly",
+    fertilizingDays: 30,
     temperature: "18-24°C",
     humidity: "40-60%",
     light: "Moderate to Bright",
@@ -80,7 +82,7 @@ export const plantData = [
     description:
       "The Jade Plant, a resilient succulent with thick, fleshy leaves, is a symbol of prosperity and longevity. Known for its adaptability and bright green foliage, it effortlessly adds a touch of nature's elegance to any space. Whether you're an experienced gardener or just starting your indoor gardening journey, the Jade Plant's unique charm and positive energy will create a harmonious atmosphere in your home.",
     wateringDays: 17,
-    fertilizingDays: "Monthly",
+    fertilizingDays: 30,
     temperature: "18-24°C",
     humidity: "30-40%",
     light: "Bright",
@@ -91,8 +93,8 @@ export const plantData = [
     description:
       "The Boston Fern, with its lush and feathery fronds, brings a touch of nature's freshness to indoor spaces. Recognized for its love of humidity, it thrives in bright, indirect light. Whether you're a seasoned plant enthusiast or a beginner, the Boston Fern's captivating greenery and air-purifying qualities make it an excellent choice for enhancing the ambiance of your indoor sanctuary.",
     wateringDays: 3,
-    fertilizingDays: "Bi-weekly",
-    temperature: "18-24°C (65-75°F)",
+    fertilizingDays: 30,
+    temperature: "18-24°C",
     humidity: "50-80%",
     light: "Moderate to Bright",
     repotting: "Every 1-2 years",
@@ -102,8 +104,8 @@ export const plantData = [
     description:
       "Orchids, with their elegant and exotic flowers, bring a touch of sophistication and beauty to any indoor garden. Recognized for their unique blooms, they thrive in bright indirect light. Whether you're a seasoned orchid enthusiast or just starting, the Orchid's captivating presence and graceful charm will elevate the aesthetics of your indoor oasis, creating a serene and visually appealing atmosphere.",
     wateringDays: 8,
-    fertilizingDays: "Bi-weekly",
-    temperature: "18-24°C (65-75°F)",
+    fertilizingDays: 5,
+    temperature: "18-24°C",
     humidity: "40-60%",
     light: "Bright Indirect",
     repotting: "Repot when crowded",

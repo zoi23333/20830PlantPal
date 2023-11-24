@@ -2,6 +2,7 @@ import * as React from "react";
 import { StyleProp, ViewStyle, StyleSheet, Text, View } from "react-native";
 import { Image } from "expo-image";
 import { FontSize, FontFamily, Color, Padding } from "../GlobalStyles";
+import { Dimensions } from "react-native";
 
 type HometabType = {
   style?: StyleProp<ViewStyle>;
@@ -21,6 +22,8 @@ const Hometab = ({ style }: HometabType) => {
     </View>
   );
 };
+
+const screenWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   vectorIcon1: {
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
   },
   hometab: {
     backgroundColor: Color.colorWhitesmoke_300,
-    width: 195,
+    width: screenWidth / 2,
     height: 88,
     overflow: "hidden",
     paddingHorizontal: Padding.p_30xl,

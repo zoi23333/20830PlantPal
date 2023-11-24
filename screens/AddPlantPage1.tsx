@@ -9,10 +9,6 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import {
-  RadioGroup as RNKRadioGroup,
-  Radio as RNKRadio,
-} from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
 import { FontFamily, FontSize, Color, Border, Padding } from "../GlobalStyles";
 import { color } from "@rneui/themed/dist/config";
