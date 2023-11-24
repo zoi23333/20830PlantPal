@@ -10,6 +10,7 @@ import {
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
 import { FontSize, FontFamily, Color, Padding } from "../GlobalStyles";
+import { Dimensions } from "react-native";
 
 type StatustabType = {
   style?: StyleProp<ViewStyle>;
@@ -46,6 +47,8 @@ const Statustab = ({ style }: StatustabType) => {
     </View>
   );
 };
+
+const screenWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   vectorIconLayout: {
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
   },
   statustab: {
     backgroundColor: Color.colorWhitesmoke_300,
-    width: 195,
+    width: screenWidth / 2,
     height: 88,
     paddingHorizontal: Padding.p_33xl,
     paddingVertical: Padding.p_lg,

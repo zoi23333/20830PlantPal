@@ -29,7 +29,7 @@ const BottomTabsRoot: React.FC<BottomTabsRootProps> = ({ navigation }) => {
           <>
             <View
               style={{
-                width: 390,
+                width: "100%",
                 height: 88,
                 flexDirection: "row",
               }}
