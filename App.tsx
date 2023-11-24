@@ -8,7 +8,7 @@ import PlantDetails from "./screens/PlantDetails";
 import PlantStatusPage from "./screens/PlantStatusPage";
 import AddPlantPage3 from "./screens/AddPlantPage3";
 import AddPlantPage2 from "./screens/AddPlantPage2";
-import AddPlantPage1 from "./components/AddPlantPage1";
+import AddPlantPage1 from "./screens/AddPlantPage1";
 import HomePage from "./screens/HomePage";
 import ManualChooseSchedule from "./screens/ManualChooseSchedule";
 import Schedulemethod from "./screens/Schedulemethod";
