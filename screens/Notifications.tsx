@@ -1,14 +1,62 @@
 import * as React from "react";
+import React, { useState } from "react";
 import { Text, StyleSheet, Pressable, View } from "react-native";
 import { Image } from "expo-image";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
-
 // import { FontFamily, Color, Padding, Border, FontSize } from "../GlobalStyles";
 import { Color, FontSize, FontFamily, Border, Padding } from "../GlobalStyles";
+import { color } from "@rneui/themed/dist/config";
+import RadioButton from "../components/RadioButton";
+
+type RadioOption = {
+  label: string | JSX.Element;
+  value: string;
+};
 
 const Notifications = () => {
+//Do we need to correct this?
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+
+const [selectedNotification, setSelectedNotification] = useState("push");
+
+ const notificationOptions: RadioOption[] = [
+    {
+      label: (
+        <Text>
+          <View style={[styles.myPlantsWrapper, styles.plantsSpaceBlock, selectedNotification === "no" && styles.selectedOption]}>
+            <Text style={[styles.myPlants1, styles.myPlants1FlexBox]}>No Notifications</Text>
+          </View>
+        </Text>
+      ),
+      value: "no",
+    },
+    {
+      label: (
+        <Text>
+          <View style={[styles.myPlantsContainer, styles.plantsSpaceBlock, selectedNotification === "push" && styles.selectedOption]}>
+            <Text style={[styles.myPlants1, styles.myPlants1FlexBox]}>Push Notifications</Text>
+          </View>
+        </Text>
+      ),
+      value: "push",
+    },
+    {
+      label: (
+        <Text>
+          <View style={[styles.myPlantsContainer, styles.plantsSpaceBlock, selectedNotification === "app" && styles.selectedOption]}>
+            <Text style={[styles.myPlants1, styles.myPlants1FlexBox]}>In-App Notifications</Text>
+          </View>
+        </Text>
+      ),
+      value: "app",
+    },
+  ];
+  
+//Save selected option
+const handleNotificationChange = (value: string) => {setSelectedNotification(value);
+  };
+  
 
   return (
     <View style={styles.notifications}>
@@ -34,6 +82,17 @@ const Notifications = () => {
           {" "}
           Notification Type
         </Text>
+
+        {notificationOptions.map((option) => (
+          <RadioButton
+            key={option.value}
+            label={option.label}
+            value={option.value}
+            selected={selectedNotification === option.value}
+            onSelect={handleNotificationChange}
+          />
+        ))}
+        /*
         <Pressable style={[styles.myPlantsWrapper, styles.plantsSpaceBlock]}>
           <Text style={[styles.myPlants1, styles.myPlants1FlexBox]}>
             No Notifications
@@ -49,7 +108,9 @@ const Notifications = () => {
             In-App Notifications
           </Text>
         </Pressable>
+      */
       </View>
+      
       <View
         style={[
           styles.notificationFrecuencyParent,
@@ -205,6 +266,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     overflow: "hidden",
   },
+  
+   selectedOption: {
+    backgroundColor: "#4B8364", // Selected background color
+    color: Color.colorWhite, // Selected text color
+  },
+  
   notifications: {
     backgroundColor: Color.colorWhite,
     fontFamily: FontFamily.dMSans,
