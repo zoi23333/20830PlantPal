@@ -21,6 +21,11 @@ const plantTypeToImage = {
 
 const PlantMoreInfo = () => {
   const navigation = useNavigation();
+<<<<<<< HEAD
+  const descriptionText =
+    "Monstera, a striking indoor plant known for its distinctive leaf structure and low-maintenance nature, is a standout choice for any indoor garden. With its unique foliage and adaptability, it effortlessly thrives and reproduces, making it a fantastic addition to your home decor. Each Monstera type may have specific care requirements, but overall, these plants are known for their resilience and ease of care. Whether you're a seasoned plant enthusiast or just starting your indoor gardening journey, Monstera will capture your attention and elevate your indoor space with its charming presence.";
+  const planttypeText = "Montsera";
+=======
   //get the plant type from the previous page --> PlantDetails
   const route = useRoute();
 
@@ -50,6 +55,7 @@ const PlantMoreInfo = () => {
     );
   }
   const imageSource = require(`../assets/${imageName}`);
+>>>>>>> fbb137784be78287bc8122bcb942744880c83ac0
 
   return (
     <View style={[styles.plantMoreInfo1, styles.iconLayout]}>

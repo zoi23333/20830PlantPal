@@ -44,10 +44,14 @@ const WaterAmount = ({ onClose }: WaterAmountType) => {
                 </View>
               </View>
             </View>
+<<<<<<< HEAD
+            <Pressable onPress={handleOkPress} style={[styles.button1, styles.youreFlexBox]}>
+=======
             <Pressable
               onPress={handleOkPress}
               style={[styles.button1, styles.youreFlexBox]}
             >
+>>>>>>> fbb137784be78287bc8122bcb942744880c83ac0
               <Text style={styles.okISee}>OK, I see</Text>
             </Pressable>
           </View>

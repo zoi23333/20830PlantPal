@@ -6,6 +6,13 @@ import { useNavigation } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
 
 const PlantStatusPage = () => {
+<<<<<<< HEAD
+  const [waterAmountButtonVisible, setWaterAmountButtonVisible] = useState(false);
+  const [isWatered, setIsWatered] = useState(false);
+  const [lastWateredDate, setLastWateredDate] = useState<Date | null>(null);
+  const [plantImage, setPlantImage] = useState(require("../assets/painting1.png"));
+  const [statusText, setStatusText] = useState("Have you watered your Fiddle-leaf fig today?");
+=======
   const [waterAmountButtonVisible, setWaterAmountButtonVisible] =
     useState(false);
   const [isWatered, setIsWatered] = useState(false);
@@ -16,7 +23,9 @@ const PlantStatusPage = () => {
   const [statusText, setStatusText] = useState(
     "Have you watered your Fiddle-leaf fig today?"
   );
+>>>>>>> fbb137784be78287bc8122bcb942744880c83ac0
   const navigation = useNavigation();
+
 
   const openWaterAmountButton = useCallback(() => {
     setWaterAmountButtonVisible(true);
@@ -29,7 +38,11 @@ const PlantStatusPage = () => {
   const handleYesButtonPress = () => {
     setIsWatered(true);
     setLastWateredDate(new Date());
+<<<<<<< HEAD
+    setPlantImage(require('../assets/AlreadyWatered.png'));
+=======
     setPlantImage(require("../assets/AlreadyWatered.png"));
+>>>>>>> fbb137784be78287bc8122bcb942744880c83ac0
     setStatusText("There are no plant care tasks to attend to today!");
   };
 
@@ -54,7 +67,11 @@ const PlantStatusPage = () => {
                 ]}
               >
                 <Text style={styles.youreAlmostThereContainer1}>
+<<<<<<< HEAD
+                 <Text style={styles.haveYouWatered}>{statusText}</Text>
+=======
                   <Text style={styles.haveYouWatered}>{statusText}</Text>
+>>>>>>> fbb137784be78287bc8122bcb942744880c83ac0
                 </Text>
               </Text>
               <Image
@@ -62,6 +79,9 @@ const PlantStatusPage = () => {
                 contentFit="cover"
                 source={plantImage}
               />
+<<<<<<< HEAD
+              <Pressable onPress={handleYesButtonPress} style={[styles.yesButton1, { display: isWatered ? 'none' : 'flex' }]}>
+=======
               <Pressable
                 onPress={handleYesButtonPress}
                 style={[
@@ -69,6 +89,7 @@ const PlantStatusPage = () => {
                   { display: isWatered ? "none" : "flex" },
                 ]}
               >
+>>>>>>> fbb137784be78287bc8122bcb942744880c83ac0
                 <Text style={[styles.yes, styles.yesTypo]}>Yes</Text>
               </Pressable>
             </View>

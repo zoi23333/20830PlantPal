@@ -33,6 +33,16 @@ const plantTypeToImage = {
 const PlantDetails = () => {
   const navigation = useNavigation();
 
+<<<<<<< HEAD
+  // Defining parameters for plant details depending of plant selected Assuming plant.temperature is a string lfrom the data base similar to the example
+  const temperatureText = "65°F to 80°F";
+  const humidityText = "50% to 60%";
+  const fertiliseText = "30 days";
+  const repotText = "1-2 years";
+  const waterText = "Every 7 days";
+  const lightText = "Bright Indirect Light";
+  const planttypeText = "Montsera";
+=======
   const plantType = "Orchid"; // Set the plant type to "Orchid"
   const plantInfo = getPlantInfo(plantType);
 
@@ -63,6 +73,7 @@ const PlantDetails = () => {
   const waterText = plantInfo.wateringDays + " days";
   const lightText = plantInfo.light;
   const planttypeText = plantInfo.name;
+>>>>>>> fbb137784be78287bc8122bcb942744880c83ac0
 
   //Calculate with other variables
   const lastDateWater = new Date("2023-11-10"); // Replace this with your actual date
