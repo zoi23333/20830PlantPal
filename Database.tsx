@@ -1,6 +1,7 @@
-//Create an struct to store the plant Data
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const plantData = [
+//Create an struct to store the plant Data
+export const plantDatabase = [
   {
     name: "Snake Plant",
     description:
@@ -11,6 +12,7 @@ export const plantData = [
     humidity: "40-70%",
     light: "Low to Bright Indirect",
     repotting: "Every 1-2 years",
+    imagePath: "snakePlant1.png",
   },
   {
     name: "Spider Plant",
@@ -22,6 +24,7 @@ export const plantData = [
     humidity: "40-60%",
     light: "Moderate to Bright",
     repotting: "Every 1-2 years",
+    imagePath: "Spiderplant2.png",
   },
   {
     name: "Pothos",
@@ -33,6 +36,7 @@ export const plantData = [
     humidity: "40-60%",
     light: "Low to Bright Indirect",
     repotting: "Every 1-2 years",
+    imagePath: "pothosplant3.png",
   },
   {
     name: "Peace Lily",
@@ -44,6 +48,7 @@ export const plantData = [
     humidity: "40-60%",
     light: "Low to Bright Indirect",
     repotting: "Every 1-2 years",
+    imagePath: "PeacyLilly4.png",
   },
   {
     name: "Aloe Vera",
@@ -55,6 +60,7 @@ export const plantData = [
     humidity: "30-40%",
     light: "Bright",
     repotting: "Every 2-3 years",
+    imagePath: "aloever5.png",
   },
   {
     name: "ZZ Plant",
@@ -66,6 +72,7 @@ export const plantData = [
     humidity: "40-50%",
     light: "Low to Moderate",
     repotting: "Every 2-3 years",
+    imagePath: "zzplant6.png",
   },
   {
     name: "Rubber Plant",
@@ -76,6 +83,7 @@ export const plantData = [
     temperature: "18-24°C",
     humidity: "40-60%",
     light: "Moderate to Bright",
+    imagePath: "rubberplant7.png",
   },
   {
     name: "Jade Plant",
@@ -87,6 +95,7 @@ export const plantData = [
     humidity: "30-40%",
     light: "Bright",
     repotting: "Every 2-3 years",
+    imagePath: "jadeplant8.png",
   },
   {
     name: "Boston Fern",
@@ -98,6 +107,7 @@ export const plantData = [
     humidity: "50-80%",
     light: "Moderate to Bright",
     repotting: "Every 1-2 years",
+    imagePath: "boston9.png",
   },
   {
     name: "Orchid",
@@ -109,6 +119,7 @@ export const plantData = [
     humidity: "40-60%",
     light: "Bright Indirect",
     repotting: "Repot when crowded",
+    imagePath: "orchid10.png",
   },
   {
     name: "Imaginary Fern",
@@ -120,6 +131,7 @@ export const plantData = [
     humidity: "50-60%",
     light: "Bright Indirect",
     repotting: "Every 1-2 years",
+    imagePath: "imaginary11.png",
   },
 ];
 
@@ -131,5 +143,5 @@ export function getPlantDescription(plantType: string) {
 
 //Recieve the Plattype string and search for all plant data
 export function getPlantInfo(plantType: string) {
-  return plantData.find((p) => p.name === plantType) || null;
+  return plantDatabase.find((p) => p.name === plantType) || null;
 }
