@@ -1,15 +1,53 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Image } from "expo-image";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useNavigation,
+  useRoute,
+  useFocusEffect,
+} from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ScreenHeight, ScreenWidth } from "@rneui/base";
+
+interface PlantData {
+  id: string;
+  plantNickname: string;
+  // other properties...
+}
 
 const HomePage = () => {
+  // // Clear the added data
+  // const clearSpecificData = async () => {
+  //   try {
+  //     await AsyncStorage.removeItem("plantDataStorage");
+  //     console.log("Data cleared successfully");
+  //   } catch (e) {
+  //     console.error("Failed to clear the data from AsyncStorage", e);
+  //   }
+  // };
+  // // Call this function where needed to clear specific data
+  // clearSpecificData();
+
   const navigation = useNavigation();
 
   const route = useRoute();
 
+  const typeGetPath = [
+    { "Snake Plant": "snakePlant1.png" },
+    { "Spider Plant": "Spiderplant2.png" },
+    { Pothos: "pothosplant3.png" },
+    { "Peace Lily": "PeacyLilly4.png" },
+    { "Aloe Vera": "aloever5.png" },
+    { "ZZ Plant": "zzplant6.png" },
+    { "Rubber Plant": "rubberplant7.png" },
+    { "Jade Plant": "jadeplant8.png" },
+    { "Boston Fern": "boston9.png" },
+    { Orchid: "orchid10.png" },
+    { "Imaginary Fern": "imaginary11.png" },
+  ];
+
+  // The function for storeData
   const storeData = async (newData) => {
     try {
       // Retrieve existing data
@@ -33,14 +71,101 @@ const HomePage = () => {
     }
   };
 
+  // read data from adding before
   const plantDataAll = route.params?.combinedData;
 
   console.log("Date at HomePage:", plantDataAll);
 
+  // Store data
   if (plantDataAll) {
     console.log("Data at HomePage:", plantDataAll);
     storeData(plantDataAll);
   }
+
+  // Getiing data from AddPlantPage3
+  const retrieveData = async () => {
+    try {
+      const existingData = await AsyncStorage.getItem("plantDataStorage");
+      return existingData ? JSON.parse(existingData) : null;
+    } catch (e) {
+      console.error("Failed to fetch the data from AsyncStorage", e);
+    }
+  };
+
+  const logData = async () => {
+    try {
+      const addedData = await retrieveData();
+      console.log("Retrieved Data:", addedData);
+      return addedData;
+    } catch (e) {
+      console.error("Error logging data", e);
+    }
+  };
+
+  // Make the data can be used in return
+  const [plantData, setPlantData] = useState<PlantData[]>([]);
+
+  useEffect(() => {
+    logData().then((addedData) => {
+      if (addedData && addedData.length > 0) {
+        setPlantData(addedData);
+        console.log("Data outside logData function:", addedData);
+      }
+    });
+  }, []); // Empty dependency array means this runs once on component mount
+
+  console.log("The data ready be used in return: ", plantData);
+
+  // Convert imagePath to an object for easier access
+  const imagePathMap = typeGetPath.reduce((map, obj) => {
+    const key = Object.keys(obj)[0];
+    map[key] = obj[key];
+    return map;
+  }, {});
+
+  // Add imagePath to each plant in plantData
+  const updatedPlantData = plantData.map((plant) => {
+    const imagePath = imagePathMap[plant.plantType];
+    return { ...plant, imagePath };
+  });
+
+  console.log("updatedPlantData:", updatedPlantData);
+
+  // The function to replace correct image path
+  type ImageMap = {
+    [key: string]: NodeRequire;
+  };
+
+  // Define the image map
+  const imageMap: ImageMap = {
+    "snakePlant1.png": require("../assets/snakePlant1.png"),
+    "Spiderplant2.png": require("../assets/Spiderplant2.png"),
+    "pothosplant3.png": require("../assets/pothosplant3.png"),
+    "PeacyLilly4.png": require("../assets/PeacyLilly4.png"),
+    "aloever5.png": require("../assets/aloever5.png"),
+    "zzplant6.png": require("../assets/zzplant6.png"),
+    "rubberplant7.png": require("../assets/rubberplant7.png"),
+    "jadeplant8.png": require("../assets/jadeplant8.png"),
+    "boston9.png": require("../assets/boston9.png"),
+    "orchid10.png": require("../assets/orchid10.png"),
+    "imaginary11.png": require("../assets/imaginary11.png"),
+  };
+
+  // Function to get the image source
+  const getImageSource = (imagePath: string): NodeRequire => {
+    return imageMap[imagePath] || require("../assets/group-177832.png"); // Default image if not found
+  };
+  // The template of a array:
+  // cityCountry: "Denmark";
+  // drainageOption: "yes";
+  // lightingOption: "direct";
+  // plantLocation: "livingroom";
+  // plantNickname: "Zoe";
+  // plantType: "Spider Plant";
+  // plantdate: "12/11/2022";
+  // plantsize: "smallplant";
+  // potsize: "smallpot";
+  // imagePath: "imagename.png"
 
   return (
     <View style={[styles.homePage, styles.iconLayout]}>
@@ -59,41 +184,40 @@ const HomePage = () => {
             />
           </Pressable>
         </View>
+
         <View style={[styles.myPlantsParent, styles.myPlantsParentSpaceBlock]}>
           <Text style={[styles.myPlants, styles.myPlantsTypo]}>My Plants</Text>
         </View>
-        <View style={[styles.plantcontainer, styles.myPlantsParentSpaceBlock]}>
-          <Pressable
-            style={[
-              styles.plantcardcontainer,
-              styles.plantimageAParentPosition,
-            ]}
-            onPress={() => navigation.navigate("PlantDetails")}
-          >
-            <View style={[styles.plantcard, styles.parentFlexBox]}>
-              <View style={styles.plantcardbackground1} />
-              <View
-                style={[
-                  styles.plantimageAParent,
-                  styles.plantimageAParentPosition,
-                ]}
-              >
-                <Image
-                  style={styles.plantimageAIcon}
-                  contentFit="cover"
-                  source={require("../assets/plantimage-a1.png")}
-                />
-                <View style={[styles.sitetext, styles.parentFlexBox]}>
-                  <Text style={[styles.livingRoom, styles.emilyTypo]}>
-                    Living room
-                  </Text>
+        <View style={styles.plantcontainer}>
+          {updatedPlantData.map((plant, index) => (
+            <Pressable
+              key={plant.id} // Prefer using unique ID over index
+              style={[styles.plantcardcontainer]}
+              onPress={() => navigation.navigate("PlantDetails")}
+            >
+              <View style={styles.cardContent}>
+                <View style={styles.plantcardbackground1} />
+                <View style={[styles.plantimageAParent]}>
+                  <Image
+                    style={styles.plantimageAIcon}
+                    contentFit="contain"
+                    source={getImageSource(plant.imagePath)}
+                  />
+                  <View style={[styles.sitetext, styles.parentFlexBox]}>
+                    <Text style={[styles.livingRoom, styles.emilyTypo]}>
+                      {plant.plantLocation}
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </View>
-            <View style={[styles.plantname, styles.parentFlexBox]}>
-              <Text style={[styles.emily, styles.emilyTypo]}>Emily</Text>
-            </View>
-          </Pressable>
+
+              <View style={[styles.plantNickname]}>
+                <Text style={[styles.emily, styles.emilyTypo]}>
+                  {plant.plantNickname}
+                </Text>
+              </View>
+            </Pressable>
+          ))}
         </View>
       </View>
     </View>
@@ -124,10 +248,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: FontFamily.dMSans,
   },
-  plantimageAParentPosition: {
-    position: "absolute",
-    alignItems: "center",
-  },
+
   emilyTypo: {
     fontFamily: FontFamily.inter,
     fontWeight: "500",
@@ -193,16 +314,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  cardContent: {},
   plantcardbackground1: {
     borderRadius: Border.br_3xs,
     backgroundColor: Color.khaki,
-    width: 110,
+    width: ScreenWidth * 0.26,
     height: 190,
     zIndex: 0,
+    position: "relative",
   },
   plantimageAIcon: {
-    width: 108,
-    height: 103,
+    width: ScreenWidth * 0.26,
+    height: ScreenWidth * 0.26,
   },
   livingRoom: {
     color: Color.darkturquoise,
@@ -212,17 +335,22 @@ const styles = StyleSheet.create({
   sitetext: {
     borderRadius: Border.br_9xs,
     paddingHorizontal: 3,
-    paddingVertical: Padding.p_11xs,
-    marginTop: 24,
+    // paddingVertical: Padding.p_11xs,
     flexDirection: "row",
     overflow: "hidden",
     backgroundColor: Color.colorWhite,
+    alignSelf: "center",
+    alignItems: "center",
+    position: "absolute",
+    top: 130,
   },
+
   plantimageAParent: {
     top: 37,
     left: 1,
     zIndex: 1,
     alignItems: "center",
+    position: "absolute",
   },
   plantcard: {
     flexDirection: "row",
@@ -231,18 +359,27 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_base,
     color: Color.colorBlack,
   },
-  plantname: {
+  plantNickname: {
     marginTop: 11,
-    flexDirection: "row",
   },
   plantcardcontainer: {
     top: 1,
     left: 0,
-    alignItems: "center",
+    // borderColor: "red",
+    // borderWidth: 1,
+    display: "flex",
+    flexDirection: "column",
+    width: ScreenWidth * 0.26,
+    height: 230,
   },
   plantcontainer: {
-    height: 525,
+    // height: ScreenHeight,
     overflow: "hidden",
+    marginTop: 28,
+    alignSelf: "stretch",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 22,
   },
   hometopbarParent: {
     marginLeft: -176,

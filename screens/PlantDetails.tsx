@@ -101,8 +101,7 @@ const PlantDetails = () => {
       <View style={[styles.picture, styles.picturePosition]}>
         <View style={styles.plantcardbackground1} />
         <Image
-          style={[styles.plantimageAIcon, styles.iconPosition]}
-          contentFit="cover"
+          style={[styles.plantimageAIcon, { resizeMode: "contain" }]}
           source={imageSource}
         />
         <View style={[styles.rectangleParent, styles.parentPosition]}>
@@ -110,6 +109,7 @@ const PlantDetails = () => {
           <Text style={styles.livingRoom}>Living room</Text>
         </View>
       </View>
+
       <View style={[styles.topTextParent, styles.picturePosition]}>
         <View style={styles.topText}>
           <View style={[styles.frameParent, styles.return21FlexBox]}>
@@ -199,20 +199,24 @@ const PlantDetails = () => {
                 </View>
                 <View style={styles.frameParentFlexBox}>
                   <View style={styles.topText}>
-                    <Image
-                      style={styles.groupWrapperLayout}
-                      contentFit="cover"
-                      source={require("../assets/group-17808.png")}
-                    />
-                    <View style={styles.view1}>
-                      <Text style={[styles.humidity, styles.waterTypo]}>
-                        Humidity
-                      </Text>
-                      <Text style={[styles.to60, styles.daysTypo]}>
-                        {humidityText}
-                      </Text>
+                    <View style={styles.HumiContainer}>
+                      <Image
+                        style={styles.groupWrapperLayout}
+                        contentFit="cover"
+                        source={require("../assets/group-17808.png")}
+                      />
+
+                      <View style={styles.view1}>
+                        <Text style={[styles.humidity, styles.waterTypo]}>
+                          Humidity
+                        </Text>
+                        <Text style={[styles.humiText, styles.daysTypo]}>
+                          {humidityText}
+                        </Text>
+                      </View>
                     </View>
                   </View>
+
                   <View style={styles.boxGroup}>
                     <Image
                       style={styles.groupWrapperLayout}
@@ -408,10 +412,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignItems: "center",
   },
-  iconPosition: {
-    zIndex: 1,
-    position: "absolute",
-  },
   parentPosition: {
     zIndex: 2,
     position: "absolute",
@@ -466,6 +466,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_xs,
     left: 0,
     position: "absolute",
+    width: 90,
   },
   fertiliseTypo: {
     color: Color.colorSeagreen,
@@ -495,6 +496,7 @@ const styles = StyleSheet.create({
   days1Clr: {
     color: Color.colorDarkslategray,
     textAlign: "left",
+    marginLeft: 4,
   },
   frameLayout: {
     width: 30,
@@ -515,9 +517,11 @@ const styles = StyleSheet.create({
   },
   plantimageAIcon: {
     top: 36,
-    left: 42,
-    width: 307,
-    height: 278,
+    left: 0,
+    width: 380,
+    height: 310,
+    zIndex: 1,
+    position: "absolute",
   },
   groupChild: {
     borderRadius: Border.br_9xs,
@@ -673,7 +677,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   light: {
-    height: 52,
+    height: 40,
     marginLeft: 11,
     width: 88,
   },
@@ -690,6 +694,8 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     position: "absolute",
+    marginTop: 10,
+    marginBottom: 10,
   },
   to60: {
     top: 23,
@@ -699,8 +705,12 @@ const styles = StyleSheet.create({
   },
   view1: {
     width: 72,
-    height: 53,
+    height: 40,
     marginLeft: 10,
+    display: "flex",
+    justifyContent: "center",
+
+    paddingTop: 10,
   },
   temperature: {
     left: 0,
@@ -764,7 +774,7 @@ const styles = StyleSheet.create({
   },
   view4: {
     width: 55,
-    height: 38,
+    height: 53,
     marginLeft: 11,
   },
   boxParent1: {
@@ -948,6 +958,16 @@ const styles = StyleSheet.create({
   profileDes: {
     // color: "#444",
     fontWeight: "500",
+  },
+
+  HumiContainer: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+
+  humiText: {
+    top: 34,
   },
 });
 
