@@ -3,6 +3,7 @@ import { Text, StyleSheet, Pressable, View } from "react-native";
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Setting = () => {
   const navigation = useNavigation();
@@ -26,7 +27,10 @@ const Setting = () => {
           Available reminder time
         </Text>
       </Pressable>
-      <Pressable style={[styles.myPlantsContainer, styles.plantsLayout]}>
+      <Pressable
+        style={[styles.myPlantsContainer, styles.plantsLayout]}
+        onPress={() => navigation.navigate("Notifications")}
+      >
         <Text style={[styles.myPlants1, styles.plantsTypo]}>Notifications</Text>
       </Pressable>
     </View>

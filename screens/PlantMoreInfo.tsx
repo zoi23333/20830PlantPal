@@ -1,14 +1,61 @@
 import * as React from "react";
 import { Text, StyleSheet, Pressable, View } from "react-native";
 import { Image } from "expo-image";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { FontSize, FontFamily, Color, Padding } from "../GlobalStyles";
+import { getPlantInfo } from "../Database";
+
+const plantTypeToImage = {
+  "Snake Plant": "snakePlant1.png",
+  "Spider Plant": "Spiderplant2.png",
+  Pothos: "pothosplant3.png",
+  "Peace Lily": "PeacyLilly4.png",
+  "Aloe Vera": "aloever5.png",
+  "ZZ Plant": "zzplant6.png",
+  "Rubber Plant": "rubberplant7.png",
+  "Jade Plant": "jadeplant8.png",
+  "Boston Fern": "boston9.png",
+  Orchid: "orchid10.png",
+  "Imaginary Fern": "imaginary11.png",
+};
 
 const PlantMoreInfo = () => {
   const navigation = useNavigation();
+<<<<<<< HEAD
   const descriptionText =
     "Monstera, a striking indoor plant known for its distinctive leaf structure and low-maintenance nature, is a standout choice for any indoor garden. With its unique foliage and adaptability, it effortlessly thrives and reproduces, making it a fantastic addition to your home decor. Each Monstera type may have specific care requirements, but overall, these plants are known for their resilience and ease of care. Whether you're a seasoned plant enthusiast or just starting your indoor gardening journey, Monstera will capture your attention and elevate your indoor space with its charming presence.";
   const planttypeText = "Montsera";
+=======
+  //get the plant type from the previous page --> PlantDetails
+  const route = useRoute();
+
+  const { plantType } = route.params;
+
+  const plantInfo = getPlantInfo(plantType);
+
+  if (!plantInfo) {
+    return (
+      <View>
+        <Text>Plant information not found</Text>
+      </View>
+    );
+  }
+
+  const descriptionText = plantInfo.description;
+  const planttypeText = plantInfo.name;
+
+  // Get the image name from the mapping
+  const imageName = plantTypeToImage[plantType];
+  if (!imageName) {
+    // Handle the case where there is no mapping for the plant type
+    return (
+      <View>
+        <Text>Image not found for {plantType}</Text>
+      </View>
+    );
+  }
+  const imageSource = require(`../assets/${imageName}`);
+>>>>>>> fbb137784be78287bc8122bcb942744880c83ac0
 
   return (
     <View style={[styles.plantMoreInfo1, styles.iconLayout]}>
@@ -38,7 +85,7 @@ const PlantMoreInfo = () => {
           <Image
             style={styles.plantimageAIcon}
             contentFit="cover"
-            source={require("../assets/plantimage-a.png")}
+            source={imageSource}
           />
         </View>
       </View>
