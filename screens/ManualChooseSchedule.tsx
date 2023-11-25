@@ -70,6 +70,7 @@ const ManualChooseSchedule = () => {
                 <CheckBox
                   checked={dayButtonchecked}
                   onPress={() => setDayButtonchecked(!dayButtonchecked)}
+                  //Get rid of the checked color if we want them to look like buttons
                   checkedColor="#ffde59"
                   containerStyle={styles.dayButtonLayout}
                 />
@@ -305,21 +306,33 @@ const styles = StyleSheet.create({
   //Checkbox
   dayButtonLayout: {
     backgroundColor: "transparent",
-    padding: 0,
+    padding: 10,
     position: "relative",
     //Added
    height: 67, // Adjusted height
     alignItems: "center",
     justifyContent: "center",
+
+//Look like button
+{/*  backgroundColor: dayButtonchecked ? "#ffde59" : "#fff", // White when not selected, color when selected
+  borderColor: dayButtonchecked ? "#ffde59" : "#ccc", // Border color when selected
+  borderWidth: 1, // Border width for the button
+  borderRadius: 8, // Adjust border radius for a rounded appearance */}
+      
   },
   
   nightButtonLayout: {
     backgroundColor: "transparent",
-    padding: 0,
+    padding: 10,
     position: "relative",
     height: 67, // Adjusted height to match dayButtonLayout
     alignItems: "center",
     justifyContent: "space-between",
+//Look like button
+{/*  backgroundColor: dayButtonchecked ? "#ffde59" : "#fff", // White when not selected, color when selected
+  borderColor: dayButtonchecked ? "#ffde59" : "#ccc", // Border color when selected
+  borderWidth: 1, // Border width for the button
+  borderRadius: 8, // Adjust border radius for a rounded appearance */}
   },
 
    //CheckboxCOntainer
