@@ -193,7 +193,7 @@ const HomePage = () => {
             <Pressable
               key={plant.id} // Prefer using unique ID over index
               style={[styles.plantcardcontainer]}
-              onPress={() => navigation.navigate("PlantDetails")}
+              onPress={() => navigation.navigate("PlantDetails", { plant })}
             >
               <View style={styles.cardContent}>
                 <View style={styles.plantcardbackground1} />
