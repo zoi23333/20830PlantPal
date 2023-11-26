@@ -1,7 +1,7 @@
 import * as React from "react";
 // import { ScrollView, StyleSheet, View, Text, Pressable } from "react-native";
 import { Image } from "expo-image";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Color, FontSize, FontFamily, Border, Padding } from "../GlobalStyles";
 import {
   ScrollView,
@@ -33,7 +33,12 @@ const plantTypeToImage = {
 const PlantDetails = () => {
   const navigation = useNavigation();
 
-  const plantType = "Orchid"; // Set the plant type to "Orchid"
+  const route = useRoute();
+
+  const plantDataFromHome = route.params?.plant;
+  console.log("From Home page:", plantDataFromHome);
+
+  const plantType = plantDataFromHome.plantType; // Set the plant type to "Orchid"
   const plantInfo = getPlantInfo(plantType);
 
   if (!plantInfo) {
@@ -73,12 +78,13 @@ const PlantDetails = () => {
   );
 
   // Use naviagation parameters from screen of add plants to this one
-  const plantnameText = "Emily";
-  const locationText = "Copenhagen";
-  const potSizeText = "Small"; // Replace with the actual user selection
-  const plantSizeText = "Medium"; // Replace with the actual user selection
-  const drainHoleText = "Yes"; // Replace with the actual user selection
-  const lightTypeText = "Indirect Sunlight";
+  const plantnameText = plantDataFromHome.plantNickname;
+  const locationText = plantDataFromHome.cityCountry;
+  const potSizeText = plantDataFromHome.potsize;
+  const plantSizeText = plantDataFromHome.plantsize;
+  const drainHoleText = plantDataFromHome.drainageOption;
+  const lightTypeText = plantDataFromHome.lightingOption;
+  const plantHomelocation = plantDataFromHome.plantLocation;
 
   return (
     <ScrollView
@@ -95,7 +101,7 @@ const PlantDetails = () => {
         />
         <View style={[styles.rectangleParent, styles.parentPosition]}>
           <View style={[styles.groupChild, styles.groupChildPosition]} />
-          <Text style={styles.livingRoom}>Living room</Text>
+          <Text style={styles.livingRoom}>{plantHomelocation}</Text>
         </View>
       </View>
 

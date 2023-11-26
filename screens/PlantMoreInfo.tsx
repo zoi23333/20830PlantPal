@@ -56,10 +56,7 @@ const PlantMoreInfo = () => {
       <View style={[styles.frameParent, styles.parentFlexBox]}>
         <View style={[styles.monsteraParent, styles.parentFlexBox]}>
           <Text style={styles.monstera}>{planttypeText}</Text>
-          <Pressable
-            style={styles.close}
-            onPress={() => navigation.navigate("PlantDetails")}
-          >
+          <Pressable style={styles.close} onPress={() => navigation.goBack()}>
             <Image
               style={[styles.icon, styles.iconLayout]}
               contentFit="cover"
