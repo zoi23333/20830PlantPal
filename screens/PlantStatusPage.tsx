@@ -4,6 +4,7 @@ import { Image } from "expo-image";
 import WaterAmount from "../components/WaterAmount";
 import { useNavigation } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
+import { ScreenWidth } from "@rneui/base";
 
 const PlantStatusPage = () => {
   const [waterAmountButtonVisible, setWaterAmountButtonVisible] =
@@ -57,11 +58,18 @@ const PlantStatusPage = () => {
                   <Text style={styles.haveYouWatered}>{statusText}</Text>
                 </Text>
               </Text>
-              <Image
-                style={styles.painting1Icon}
-                contentFit="cover"
-                source={plantImage}
-              />
+              <View style={[styles.imageContainer]}>
+                <Image
+                  style={
+                    isWatered
+                      ? [styles.watered, { resizeMode: "contain" }]
+                      : [styles.painting1Icon, { resizeMode: "contain" }]
+                  }
+                  source={plantImage}
+                  contentFit="cover"
+                  source={plantImage}
+                />
+              </View>
               <Pressable
                 onPress={handleYesButtonPress}
                 style={[
@@ -286,11 +294,26 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
   },
+  imageContainer: {
+    width: ScreenWidth * 0.5,
+    height: ScreenWidth * 0.5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
   painting1Icon: {
     top: 60,
     left: 83,
     width: 136,
     height: 100,
+    position: "absolute",
+  },
+
+  watered: {
+    top: 50,
+    left: 63,
+    width: 166,
+    height: 150,
     position: "absolute",
   },
   yes: {
