@@ -49,7 +49,6 @@ const Statustab = ({ style }: StatustabType) => {
 };
 
 const screenWidth = Dimensions.get("window").width;
-<<<<<<< HEAD
 
 =======
 >>>>>>> fbb137784be78287bc8122bcb942744880c83ac0
