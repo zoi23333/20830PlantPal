@@ -4,6 +4,7 @@ import { Image } from "expo-image";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { FontSize, FontFamily, Color, Padding } from "../GlobalStyles";
 import { getPlantInfo } from "../Database";
+import { ScreenWidth } from "@rneui/base";
 
 const plantTypeToImage = {
   "Snake Plant": "snakePlant1.png",
@@ -56,10 +57,7 @@ const PlantMoreInfo = () => {
       <View style={[styles.frameParent, styles.parentFlexBox]}>
         <View style={[styles.monsteraParent, styles.parentFlexBox]}>
           <Text style={styles.monstera}>{planttypeText}</Text>
-          <Pressable
-            style={styles.close}
-            onPress={() => navigation.navigate("PlantDetails")}
-          >
+          <Pressable style={styles.close} onPress={() => navigation.goBack()}>
             <Image
               style={[styles.icon, styles.iconLayout]}
               contentFit="cover"
@@ -77,7 +75,7 @@ const PlantMoreInfo = () => {
             source={require("../assets/rectangle-627.png")}
           /> */}
           <Image
-            style={styles.plantimageAIcon}
+            style={[styles.plantimageAIcon, { resizeMode: "contain" }]}
             contentFit="cover"
             source={imageSource}
           />
@@ -145,11 +143,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   plantimageAIcon: {
-    top: 36,
-    left: 42,
-    width: 307,
-    height: 278,
+    top: ScreenWidth * 0.07,
+    left: ScreenWidth * 0.2,
+    width: ScreenWidth * 0.6,
+    height: ScreenWidth * 0.8,
     zIndex: 1,
+
     position: "absolute",
   },
   plantcardbackgroundParent: {

@@ -1,7 +1,7 @@
 import * as React from "react";
 // import { ScrollView, StyleSheet, View, Text, Pressable } from "react-native";
 import { Image } from "expo-image";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Color, FontSize, FontFamily, Border, Padding } from "../GlobalStyles";
 import {
   ScrollView,
@@ -33,7 +33,12 @@ const plantTypeToImage = {
 const PlantDetails = () => {
   const navigation = useNavigation();
 
-  const plantType = "Orchid"; // Set the plant type to "Orchid"
+  const route = useRoute();
+
+  const plantDataFromHome = route.params?.plant;
+  console.log("From Home page:", plantDataFromHome);
+
+  const plantType = plantDataFromHome.plantType; // Set the plant type to "Orchid"
   const plantInfo = getPlantInfo(plantType);
 
   if (!plantInfo) {
@@ -73,12 +78,13 @@ const PlantDetails = () => {
   );
 
   // Use naviagation parameters from screen of add plants to this one
-  const plantnameText = "Emily";
-  const locationText = "Copenhagen";
-  const potSizeText = "Small"; // Replace with the actual user selection
-  const plantSizeText = "Medium"; // Replace with the actual user selection
-  const drainHoleText = "Yes"; // Replace with the actual user selection
-  const lightTypeText = "Indirect Sunlight";
+  const plantnameText = plantDataFromHome.plantNickname;
+  const locationText = plantDataFromHome.cityCountry;
+  const potSizeText = plantDataFromHome.potsize;
+  const plantSizeText = plantDataFromHome.plantsize;
+  const drainHoleText = plantDataFromHome.drainageOption;
+  const lightTypeText = plantDataFromHome.lightingOption;
+  const plantHomelocation = plantDataFromHome.plantLocation;
 
   return (
     <ScrollView
@@ -90,15 +96,15 @@ const PlantDetails = () => {
       <View style={[styles.picture, styles.picturePosition]}>
         <View style={styles.plantcardbackground1} />
         <Image
-          style={[styles.plantimageAIcon, styles.iconPosition]}
-          contentFit="cover"
+          style={[styles.plantimageAIcon, { resizeMode: "contain" }]}
           source={imageSource}
         />
         <View style={[styles.rectangleParent, styles.parentPosition]}>
           <View style={[styles.groupChild, styles.groupChildPosition]} />
-          <Text style={styles.livingRoom}>Living room</Text>
+          <Text style={styles.livingRoom}>{plantHomelocation}</Text>
         </View>
       </View>
+
       <View style={[styles.topTextParent, styles.picturePosition]}>
         <View style={styles.topText}>
           <View style={[styles.frameParent, styles.return21FlexBox]}>
@@ -188,20 +194,24 @@ const PlantDetails = () => {
                 </View>
                 <View style={styles.frameParentFlexBox}>
                   <View style={styles.topText}>
-                    <Image
-                      style={styles.groupWrapperLayout}
-                      contentFit="cover"
-                      source={require("../assets/group-17808.png")}
-                    />
-                    <View style={styles.view1}>
-                      <Text style={[styles.humidity, styles.waterTypo]}>
-                        Humidity
-                      </Text>
-                      <Text style={[styles.to60, styles.daysTypo]}>
-                        {humidityText}
-                      </Text>
+                    <View style={styles.HumiContainer}>
+                      <Image
+                        style={styles.groupWrapperLayout}
+                        contentFit="cover"
+                        source={require("../assets/group-17808.png")}
+                      />
+
+                      <View style={styles.view1}>
+                        <Text style={[styles.humidity, styles.waterTypo]}>
+                          Humidity
+                        </Text>
+                        <Text style={[styles.humiText, styles.daysTypo]}>
+                          {humidityText}
+                        </Text>
+                      </View>
                     </View>
                   </View>
+
                   <View style={styles.boxGroup}>
                     <Image
                       style={styles.groupWrapperLayout}
@@ -397,10 +407,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignItems: "center",
   },
-  iconPosition: {
-    zIndex: 1,
-    position: "absolute",
-  },
   parentPosition: {
     zIndex: 2,
     position: "absolute",
@@ -455,6 +461,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_xs,
     left: 0,
     position: "absolute",
+    width: 90,
   },
   fertiliseTypo: {
     color: Color.colorSeagreen,
@@ -484,6 +491,7 @@ const styles = StyleSheet.create({
   days1Clr: {
     color: Color.colorDarkslategray,
     textAlign: "left",
+    marginLeft: 4,
   },
   frameLayout: {
     width: 30,
@@ -503,10 +511,12 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
   plantimageAIcon: {
-    top: 36,
-    left: 42,
-    width: 307,
-    height: 278,
+    top: ScreenWidth * 0.07,
+    left: ScreenWidth * 0.2,
+    width: ScreenWidth * 0.6,
+    height: ScreenWidth * 0.8,
+    zIndex: 1,
+    position: "absolute",
   },
   groupChild: {
     borderRadius: Border.br_9xs,
@@ -662,7 +672,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   light: {
-    height: 52,
+    height: 40,
     marginLeft: 11,
     width: 88,
   },
@@ -679,6 +689,8 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     position: "absolute",
+    marginTop: 10,
+    marginBottom: 10,
   },
   to60: {
     top: 23,
@@ -688,8 +700,12 @@ const styles = StyleSheet.create({
   },
   view1: {
     width: 72,
-    height: 53,
+    height: 40,
     marginLeft: 10,
+    display: "flex",
+    justifyContent: "center",
+
+    paddingTop: 10,
   },
   temperature: {
     left: 0,
@@ -753,7 +769,7 @@ const styles = StyleSheet.create({
   },
   view4: {
     width: 55,
-    height: 38,
+    height: 53,
     marginLeft: 11,
   },
   boxParent1: {
@@ -937,6 +953,16 @@ const styles = StyleSheet.create({
   profileDes: {
     // color: "#444",
     fontWeight: "500",
+  },
+
+  HumiContainer: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+
+  humiText: {
+    top: 34,
   },
 });
 
