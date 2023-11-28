@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Pressable, StyleSheet, View, Text } from "react-native";
 import { Image } from "expo-image";
 // @ts-ignore
@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { FontFamily, FontSize, Color, Border, Padding } from "../GlobalStyles";
 import { ScreenWidth } from "@rneui/base";
 import Svg, { Path } from "react-native-svg";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type RadioOption = {
   label: string | JSX.Element;
@@ -17,15 +18,32 @@ const ManualChooseSchedule = () => {
   const navigation = useNavigation();
 
   const [selectedPlaceOptions, setSelectedPlaceOptions] = useState([]);
-  const handleSelectOption = (value: string) => {
+
+  const handleSelectOption = async (value: string) => {
+    let newSelectedOptions = [];
     if (selectedPlaceOptions.includes(value)) {
-      setSelectedPlaceOptions(
-        selectedPlaceOptions.filter((item) => item !== value)
+      newSelectedOptions = selectedPlaceOptions.filter(
+        (item) => item !== value
       );
     } else {
-      setSelectedPlaceOptions([...selectedPlaceOptions, value]);
+      newSelectedOptions = [...selectedPlaceOptions, value];
     }
+    setSelectedPlaceOptions(newSelectedOptions);
+    await AsyncStorage.setItem(
+      "selectedPlaceOptions",
+      JSON.stringify(newSelectedOptions)
+    );
   };
+
+  useEffect(() => {
+    const loadSelectedOptions = async () => {
+      const storedOptions = await AsyncStorage.getItem("selectedPlaceOptions");
+      if (storedOptions) {
+        setSelectedPlaceOptions(JSON.parse(storedOptions));
+      }
+    };
+    loadSelectedOptions();
+  }, []);
 
   const OptionMorning: RadioOption[] = [
     {
@@ -401,9 +419,7 @@ const ManualChooseSchedule = () => {
 
         <Pressable
           style={[styles.saveWrapper, styles.saveWrapperFlexBox]}
-          onPress={() =>
-            navigation.navigate("BottomTabsRoot", { screen: "HomePage" })
-          }
+          onPress={() => navigation.goBack()}
         >
           <Text style={[styles.save, styles.saveTypo]}>Save</Text>
         </Pressable>
@@ -625,12 +641,11 @@ const styles = StyleSheet.create({
   AnswerBackgroundSelected1: {
     backgroundColor: "#DDAE51",
     borderWidth: 2,
-    borderColor: "#fff",
+    borderColor: "#DDAE51",
   },
 
   AnswerBackground2: {
     backgroundColor: "#fff",
-
     width: 55,
     height: 55,
     borderRadius: 6,
@@ -642,14 +657,15 @@ const styles = StyleSheet.create({
   },
 
   AnswerBackgroundSelected2: {
-    backgroundColor: "#F4A261",
+    borderColor: "#F4A261",
     borderWidth: 2,
-    borderColor: "#fff",
+    backgroundColor: "#F4A261",
   },
 
   AnswerBackground3: {
-    backgroundColor: "#fff",
+    backgroundColor: "#BC8F92",
     borderColor: "#BC8F92",
+
     width: 55,
     height: 55,
     borderRadius: 6,
@@ -660,9 +676,9 @@ const styles = StyleSheet.create({
   },
 
   AnswerBackgroundSelected3: {
-    backgroundColor: "#BC8F92",
     borderWidth: 2,
-    borderColor: "#fff",
+    backgroundColor: "#fff",
+    borderColor: "#BC8F92",
   },
 
   optionText: {

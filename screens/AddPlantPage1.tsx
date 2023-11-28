@@ -12,8 +12,6 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontFamily, FontSize, Color, Border, Padding } from "../GlobalStyles";
-import { color } from "@rneui/themed/dist/config";
-import RadioButton from "../components/RadioButton";
 
 type RadioOption = {
   label: string | JSX.Element;

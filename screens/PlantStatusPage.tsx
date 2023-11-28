@@ -4,7 +4,6 @@ import { Image } from "expo-image";
 import WaterAmount from "../components/WaterAmount";
 import { useNavigation } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
-import { ScreenWidth } from "@rneui/base";
 
 const PlantStatusPage = () => {
   const [waterAmountButtonVisible, setWaterAmountButtonVisible] =
@@ -34,6 +33,37 @@ const PlantStatusPage = () => {
     setStatusText("There are no plant care tasks to attend to today!");
   };
 
+  const [eventList, setEventList] = useState([
+    {
+      id: 1,
+      image: require("../assets/boston9.png"),
+      text: "Water your Boston Fern",
+      days: 0,
+    },
+    {
+      id: 2,
+      image: require("../assets/PeacyLilly4.png"),
+      text: "Water your Peacy Lilly",
+      days: 4,
+    },
+    {
+      id: 3,
+      image: require("../assets/boston9.png"),
+      text: "Water your Boston Fern",
+      days: 8,
+    },
+    {
+      id: 4,
+      image: require("../assets/PeacyLilly4.png"),
+      text: "Water your Peacy Lilly",
+      days: 13,
+    },
+  ]);
+
+  const filteredEventList = isWatered
+    ? eventList.filter((event) => event.days > 0)
+    : eventList.filter((event) => event.days === 0 || event.days > 0);
+
   return (
     <>
       <View style={styles.plantStatusPage1}>
@@ -58,18 +88,16 @@ const PlantStatusPage = () => {
                   <Text style={styles.haveYouWatered}>{statusText}</Text>
                 </Text>
               </Text>
-              <View style={[styles.imageContainer]}>
-                <Image
-                  style={
-                    isWatered
-                      ? [styles.watered, { resizeMode: "contain" }]
-                      : [styles.painting1Icon, { resizeMode: "contain" }]
-                  }
-                  source={plantImage}
-                  contentFit="cover"
-                  source={plantImage}
-                />
-              </View>
+              <Image
+                style={
+                  isWatered
+                    ? [styles.watered, { resizeMode: "contain" }]
+                    : [styles.painting1Icon, { resizeMode: "contain" }]
+                }
+                source={plantImage}
+                contentFit="cover"
+                source={plantImage}
+              />
               <Pressable
                 onPress={handleYesButtonPress}
                 style={[
@@ -86,68 +114,37 @@ const PlantStatusPage = () => {
               Plant care events
             </Text>
             <View style={styles.eventList}>
-              <View style={styles.eventEntry}>
-                <Image
-                  style={styles.eventEntryChild}
-                  contentFit="cover"
-                  source={require("../assets/group-17783.png")}
-                />
-                <View style={styles.eventText}>
-                  <Text
-                    style={[styles.waterYourFiddleLeaf2, styles.fiddleTypo]}
-                  >
-                    Water your Fiddle-leaf fig
-                  </Text>
-                  <Text style={[styles.today1, styles.daysSpaceBlock]}>
-                    Today
-                  </Text>
+              {filteredEventList.map((event) => (
+                <View style={styles.eventEntry} key={event.id}>
+                  <Image
+                    style={styles.eventEntryChild}
+                    contentFit="contain"
+                    source={event.image}
+                  />
+                  <View style={styles.eventText}>
+                    <Text
+                      style={[styles.waterYourFiddleLeaf2, styles.fiddleTypo]}
+                    >
+                      {event.text}
+                    </Text>
+                    {isWatered ? (
+                      <Text style={[styles.days, styles.daysTypo]}>
+                        {event.days} days
+                      </Text>
+                    ) : (
+                      <Text
+                        style={[
+                          styles.today1,
+                          styles.daysSpaceBlock,
+                          event.days === 0 && styles.todayred,
+                        ]}
+                      >
+                        {event.days === 0 ? "Today" : `${event.days} days`}
+                      </Text>
+                    )}
+                  </View>
                 </View>
-              </View>
-              <View style={styles.eventEntry1}>
-                <Image
-                  style={styles.eventEntryChild}
-                  contentFit="cover"
-                  source={require("../assets/group-177831.png")}
-                />
-                <View style={styles.eventText}>
-                  <Text
-                    style={[styles.waterYourFiddleLeaf2, styles.fiddleTypo]}
-                  >
-                    Water your Snake Plant
-                  </Text>
-                  <Text style={[styles.days, styles.daysTypo]}>4 days</Text>
-                </View>
-              </View>
-              <View style={styles.eventEntry1}>
-                <Image
-                  style={styles.eventEntryChild}
-                  contentFit="cover"
-                  source={require("../assets/group-177832.png")}
-                />
-                <View style={styles.eventText}>
-                  <Text
-                    style={[styles.waterYourFiddleLeaf2, styles.fiddleTypo]}
-                  >
-                    Water your Monstera
-                  </Text>
-                  <Text style={[styles.days, styles.daysTypo]}>5 days</Text>
-                </View>
-              </View>
-              <View style={styles.eventEntry1}>
-                <Image
-                  style={styles.eventEntryChild}
-                  contentFit="cover"
-                  source={require("../assets/group-177833.png")}
-                />
-                <View style={styles.eventText}>
-                  <Text
-                    style={[styles.waterYourFiddleLeaf2, styles.fiddleTypo]}
-                  >
-                    Water your Fiddle-leaf fig
-                  </Text>
-                  <Text style={[styles.days, styles.daysTypo]}>8 days</Text>
-                </View>
-              </View>
+              ))}
             </View>
           </View>
         </View>
@@ -205,7 +202,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_xs,
   },
   daysTypo: {
-    color: Color.colorGray_200,
+    color: "#607d3b",
     textAlign: "left",
     fontFamily: FontFamily.dMSans,
   },
@@ -294,13 +291,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
   },
-  imageContainer: {
-    width: ScreenWidth * 0.5,
-    height: ScreenWidth * 0.5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
   painting1Icon: {
     top: 60,
     left: 83,
@@ -316,6 +306,7 @@ const styles = StyleSheet.create({
     height: 150,
     position: "absolute",
   },
+
   yes: {
     color: Color.colorWhite,
     textAlign: "center",
@@ -354,6 +345,8 @@ const styles = StyleSheet.create({
   eventEntryChild: {
     width: 50,
     height: 50,
+    backgroundColor: "#E8E5B1",
+    borderRadius: 6,
   },
   waterYourFiddleLeaf2: {
     letterSpacing: -0.3,
@@ -362,10 +355,14 @@ const styles = StyleSheet.create({
     color: Color.colorDarkslategray,
   },
   today1: {
-    color: "#039e41",
+    color: "#607d3b",
     textAlign: "left",
     fontFamily: FontFamily.dMSans,
   },
+  todayred: {
+    color: "#3cb043",
+  },
+
   eventText: {
     marginLeft: 15,
   },
@@ -390,6 +387,9 @@ const styles = StyleSheet.create({
     marginTop: 16,
     width: 340,
     justifyContent: "center",
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
   },
   eventTitleParent: {
     marginTop: 33,
