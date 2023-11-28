@@ -5,30 +5,247 @@ import { Image } from "expo-image";
 import { CheckBox } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { FontFamily, FontSize, Color, Border, Padding } from "../GlobalStyles";
+import { ScreenWidth } from "@rneui/base";
+import Svg, { Path } from "react-native-svg";
+
+type RadioOption = {
+  label: string | JSX.Element;
+  value: string;
+};
 
 const ManualChooseSchedule = () => {
-  const [dayButtonchecked, setDayButtonchecked] = useState(false);
-  const [dayButton1checked, setDayButton1checked] = useState(false);
-  const [dayButton2checked, setDayButton2checked] = useState(false);
-  const [dayButton3checked, setDayButton3checked] = useState(false);
-  const [dayButton4checked, setDayButton4checked] = useState(false);
-  const [dayButton5checked, setDayButton5checked] = useState(false);
-  const [dayButton6checked, setDayButton6checked] = useState(false);
-  const [dayButton7checked, setDayButton7checked] = useState(false);
-  const [dayButton8checked, setDayButton8checked] = useState(false);
-  const [dayButton9checked, setDayButton9checked] = useState(false);
-  const [dayButton10checked, setDayButton10checked] = useState(false);
-  const [dayButton11checked, setDayButton11checked] = useState(false);
-  const [dayButton12checked, setDayButton12checked] = useState(false);
-  const [dayButton13checked, setDayButton13checked] = useState(false);
-  const [nightButtonchecked, setNightButtonchecked] = useState(true);
-  const [nightButton1checked, setNightButton1checked] = useState(true);
-  const [nightButton2checked, setNightButton2checked] = useState(true);
-  const [nightButton3checked, setNightButton3checked] = useState(true);
-  const [nightButton4checked, setNightButton4checked] = useState(true);
-  const [nightButton5checked, setNightButton5checked] = useState(true);
-  const [nightButton6checked, setNightButton6checked] = useState(true);
   const navigation = useNavigation();
+
+  const [selectedPlaceOptions, setSelectedPlaceOptions] = useState([]);
+  const handleSelectOption = (value: string) => {
+    if (selectedPlaceOptions.includes(value)) {
+      setSelectedPlaceOptions(
+        selectedPlaceOptions.filter((item) => item !== value)
+      );
+    } else {
+      setSelectedPlaceOptions([...selectedPlaceOptions, value]);
+    }
+  };
+
+  const OptionMorning: RadioOption[] = [
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>8-13</text>
+          </View>
+        </Text>
+      ),
+      value: "1-1",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>8-13</text>
+          </View>
+        </Text>
+      ),
+      value: "1-2",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>8-13</text>
+          </View>
+        </Text>
+      ),
+      value: "1-3",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>8-13</text>
+          </View>
+        </Text>
+      ),
+      value: "1-4",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>8-13</text>
+          </View>
+        </Text>
+      ),
+      value: "1-5",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>8-13</text>
+          </View>
+        </Text>
+      ),
+      value: "1-6",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>8-13</text>
+          </View>
+        </Text>
+      ),
+      value: "1-7",
+    },
+  ];
+
+  const OptionAfternoon: RadioOption[] = [
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>14-18</text>
+          </View>
+        </Text>
+      ),
+      value: "2-1",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>14-18</text>
+          </View>
+        </Text>
+      ),
+      value: "2-2",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>14-18</text>
+          </View>
+        </Text>
+      ),
+      value: "2-3",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>14-18</text>
+          </View>
+        </Text>
+      ),
+      value: "2-4",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>14-18</text>
+          </View>
+        </Text>
+      ),
+      value: "2-5",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>14-18</text>
+          </View>
+        </Text>
+      ),
+      value: "2-6",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>14-18</text>
+          </View>
+        </Text>
+      ),
+      value: "2-7",
+    },
+  ];
+
+  const OptionEvening: RadioOption[] = [
+    // Evening
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>19-21</text>
+          </View>
+        </Text>
+      ),
+      value: "3-1",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>19-21</text>
+          </View>
+        </Text>
+      ),
+      value: "3-2",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>19-21</text>
+          </View>
+        </Text>
+      ),
+      value: "3-3",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>19-21</text>
+          </View>
+        </Text>
+      ),
+      value: "3-4",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>19-21</text>
+          </View>
+        </Text>
+      ),
+      value: "3-5",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>19-21</text>
+          </View>
+        </Text>
+      ),
+      value: "3-6",
+    },
+    {
+      label: (
+        <Text>
+          <View style={styles.placeOption}>
+            <text style={styles.optionText}>19-21</text>
+          </View>
+        </Text>
+      ),
+      value: "3-7",
+    },
+  ];
 
   return (
     <View style={[styles.manualChooseSchedule1, styles.saveWrapperFlexBox]}>
@@ -47,273 +264,141 @@ const ManualChooseSchedule = () => {
         <Text style={[styles.whenAreYou1, styles.saveTypo]}>
           When are you available for plant care?
         </Text>
+
         <View style={styles.manualselect}>
           <View style={styles.daysweek}>
-            <Text style={styles.mon}> Mon</Text>
-            <Text style={[styles.tue, styles.tueTypo]}>Tue</Text>
-            <Text style={[styles.wed, styles.tueTypo]}>Wed</Text>
-            <Text style={[styles.tue, styles.tueTypo]}>Thu</Text>
-            <Text style={[styles.tue, styles.tueTypo]}>Fri</Text>
-            <Text style={[styles.tue, styles.tueTypo]}>Sat</Text>
-            <Text style={[styles.tue, styles.tueTypo]}>Sun</Text>
+            <Text> Mon</Text>
+            <Text>Tue</Text>
+            <Text>Wed</Text>
+            <Text>Thu</Text>
+            <Text>Fri</Text>
+            <Text>Sat</Text>
+            <Text>Sun</Text>
           </View>
+
           <View style={styles.backbuttonFlexBox}>
-            <View style={styles.dayFlexBox}>
-              <View
-                style={[
-                  styles.daybuttonwithtime,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButtonchecked}
-                  onPress={() => setDayButtonchecked(!dayButtonchecked)}
-                  checkedColor="#ffde59"
-                  containerStyle={styles.dayButtonLayout}
-                />
-                <Text style={[styles.text21, styles.textTypo]}>08-13</Text>
-              </View>
-              <View
-                style={[
-                  styles.daybuttonwithtime,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton1checked}
-                  onPress={() => setDayButton1checked(!dayButton1checked)}
-                  checkedColor="#ffde59"
-                  containerStyle={styles.dayButton1Layout}
-                />
-                <Text style={[styles.text21, styles.textTypo]}>08-13</Text>
-              </View>
-              <View
-                style={[
-                  styles.daybuttonwithtime,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton2checked}
-                  onPress={() => setDayButton2checked(!dayButton2checked)}
-                  checkedColor="#ffde59"
-                  containerStyle={styles.dayButton2Layout}
-                />
-                <Text style={[styles.text21, styles.textTypo]}>08-13</Text>
-              </View>
-              <View
-                style={[
-                  styles.daybuttonwithtime,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton3checked}
-                  onPress={() => setDayButton3checked(!dayButton3checked)}
-                  checkedColor="#ffde59"
-                  containerStyle={styles.dayButton3Layout}
-                />
-                <Text style={[styles.text21, styles.textTypo]}>08-13</Text>
-              </View>
-              <View
-                style={[
-                  styles.daybuttonwithtime4,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton4checked}
-                  onPress={() => setDayButton4checked(!dayButton4checked)}
-                  checkedColor="#ffde59"
-                  containerStyle={styles.dayButton4Layout}
-                />
-                <Text style={[styles.text25, styles.textTypo]}>08-13</Text>
-              </View>
-              <View
-                style={[
-                  styles.daybuttonwithtime,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton5checked}
-                  onPress={() => setDayButton5checked(!dayButton5checked)}
-                  checkedColor="#ffde59"
-                  containerStyle={styles.dayButton5Layout}
-                />
-                <Text style={[styles.text21, styles.textTypo]}>08-13</Text>
-              </View>
-              <View
-                style={[
-                  styles.daybuttonwithtime,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton6checked}
-                  onPress={() => setDayButton6checked(!dayButton6checked)}
-                  checkedColor="#ffde59"
-                  containerStyle={styles.dayButton6Layout}
-                />
-                <Text style={[styles.text21, styles.textTypo]}>08-13</Text>
-              </View>
-            </View>
-            <View style={[styles.day1, styles.dayFlexBox]}>
-              <View
-                style={[
-                  styles.daybuttonwithtime,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton7checked}
-                  onPress={() => setDayButton7checked(!dayButton7checked)}
-                  checkedColor="#f4a261"
-                  containerStyle={styles.dayButton7Layout}
-                />
-                <Text style={[styles.text21, styles.textTypo]}>14-18</Text>
-              </View>
-              <View
-                style={[
-                  styles.daybuttonwithtime,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton8checked}
-                  onPress={() => setDayButton8checked(!dayButton8checked)}
-                  checkedColor="#f4a261"
-                  containerStyle={styles.dayButton8Layout}
-                />
-                <Text style={[styles.text21, styles.textTypo]}>14-18</Text>
-              </View>
-              <View
-                style={[
-                  styles.daybuttonwithtime,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton9checked}
-                  onPress={() => setDayButton9checked(!dayButton9checked)}
-                  checkedColor="#f4a261"
-                  containerStyle={styles.dayButton9Layout}
-                />
-                <Text style={[styles.text21, styles.textTypo]}>14-18</Text>
-              </View>
-              <View
-                style={[
-                  styles.daybuttonwithtime,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton10checked}
-                  onPress={() => setDayButton10checked(!dayButton10checked)}
-                  checkedColor="#f4a261"
-                  containerStyle={styles.dayButton10Layout}
-                />
-                <Text style={[styles.text21, styles.textTypo]}>14-18</Text>
-              </View>
-              <View
-                style={[
-                  styles.daybuttonwithtime4,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton11checked}
-                  onPress={() => setDayButton11checked(!dayButton11checked)}
-                  checkedColor="#f4a261"
-                  containerStyle={styles.dayButton11Layout}
-                />
-                <Text style={[styles.text25, styles.textTypo]}>14-18</Text>
-              </View>
-              <View
-                style={[
-                  styles.daybuttonwithtime,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton12checked}
-                  onPress={() => setDayButton12checked(!dayButton12checked)}
-                  checkedColor="#f4a261"
-                  containerStyle={styles.dayButton12Layout}
-                />
-                <Text style={[styles.text21, styles.textTypo]}>14-18</Text>
-              </View>
-              <View
-                style={[
-                  styles.daybuttonwithtime,
-                  styles.daybuttonwithtimeLayout,
-                ]}
-              >
-                <CheckBox
-                  checked={dayButton13checked}
-                  onPress={() => setDayButton13checked(!dayButton13checked)}
-                  checkedColor="#f4a261"
-                  containerStyle={styles.dayButton13Layout}
-                />
-                <Text style={[styles.text21, styles.textTypo]}>14-18</Text>
-              </View>
-            </View>
-            <View style={[styles.day1, styles.dayFlexBox]}>
-              <CheckBox
-                checked={nightButtonchecked}
-                onPress={() => setNightButtonchecked(!nightButtonchecked)}
-                checkedColor="#bc8f92"
-                containerStyle={styles.nightButtonLayout}
-              />
-              <Text style={[styles.text35, styles.textTypo]}>19-00</Text>
-              <CheckBox
-                checked={nightButton1checked}
-                onPress={() => setNightButton1checked(!nightButton1checked)}
-                checkedColor="#bc8f92"
-                containerStyle={styles.nightButton1Layout}
-              />
-              <Text style={[styles.text36, styles.textTypo]}>19-00</Text>
-              <CheckBox
-                checked={nightButton2checked}
-                onPress={() => setNightButton2checked(!nightButton2checked)}
-                checkedColor="#bc8f92"
-                containerStyle={styles.nightButton2Layout}
-              />
-              <Text style={[styles.text36, styles.textTypo]}>19-00</Text>
-              <CheckBox
-                checked={nightButton3checked}
-                onPress={() => setNightButton3checked(!nightButton3checked)}
-                checkedColor="#bc8f92"
-                containerStyle={styles.nightButton3Layout}
-              />
-              <Text style={[styles.text36, styles.textTypo]}>19-00</Text>
-              <CheckBox
-                checked={nightButton4checked}
-                onPress={() => setNightButton4checked(!nightButton4checked)}
-                checkedColor="#bc8f92"
-                containerStyle={styles.nightButton4Layout}
-              />
-              <Text style={[styles.text36, styles.textTypo]}>19-00</Text>
-              <CheckBox
-                checked={nightButton5checked}
-                onPress={() => setNightButton5checked(!nightButton5checked)}
-                checkedColor="#bc8f92"
-                containerStyle={styles.nightButton5Layout}
-              />
-              <Text style={[styles.text36, styles.textTypo]}>19-00</Text>
-              <CheckBox
-                checked={nightButton6checked}
-                onPress={() => setNightButton6checked(!nightButton6checked)}
-                checkedColor="#bc8f92"
-                containerStyle={styles.nightButton6Layout}
-              />
-              <Text style={[styles.text36, styles.textTypo]}>19-00</Text>
+            <View style={styles.optionWapper}>
+              {OptionMorning.map((option) => (
+                <View
+                  key={option.value}
+                  style={[
+                    styles.AnswerBackground1,
+                    selectedPlaceOptions.includes(option.value) &&
+                      styles.AnswerBackgroundSelected1,
+                  ]}
+                >
+                  <Pressable
+                    style={styles.radioOption}
+                    onPress={() => handleSelectOption(option.value)}
+                  >
+                    <Svg
+                      height="28" // Adjust as needed
+                      width="28" // Adjust as needed
+                      viewBox="0 0 1024 1024" // Your SVG's viewbox
+                      style={styles.yourSvgIconStyle}
+                    >
+                      <Path
+                        d="M896 640H128a42.666667 42.666667 0 0 1 0-85.333333h42.666667a341.333333 341.333333 0 1 1 682.666666 0h42.666667a42.666667 42.666667 0 0 1 0 85.333333z m-128 170.666667H256a42.666667 42.666667 0 0 1 0-85.333334h512a42.666667 42.666667 0 0 1 0 85.333334zM256 554.666667h512a256 256 0 1 0-512 0z"
+                        fill="#f4e6ca" // Your SVG's fill color
+                        strokeWidth="2"
+                        // Add other path properties as needed
+                      />
+                    </Svg>
+
+                    <Text
+                      style={[
+                        styles.radioLabel,
+                        selectedPlaceOptions.includes(option.value) &&
+                          styles.radioLabelSelected,
+                      ]}
+                    >
+                      {option.label}
+                    </Text>
+                  </Pressable>
+                </View>
+              ))}
+
+              {OptionAfternoon.map((option) => (
+                <View
+                  key={option.value}
+                  style={[
+                    styles.AnswerBackground2,
+                    selectedPlaceOptions.includes(option.value) &&
+                      styles.AnswerBackgroundSelected2,
+                  ]}
+                >
+                  <Pressable
+                    style={styles.radioOption}
+                    onPress={() => handleSelectOption(option.value)}
+                  >
+                    <Svg
+                      height="31" // Adjust as needed
+                      width="31" // Adjust as needed
+                      viewBox="0 0 1024 1024" // Your SVG's viewbox
+                      style={styles.yourSvgIconStyle}
+                    >
+                      <Path
+                        d="M512 85.333333a42.666667 42.666667 0 0 1 42.666667 42.666667v42.666667a42.666667 42.666667 0 1 1-85.333334 0V128a42.666667 42.666667 0 0 1 42.666667-42.666667z m301.696 124.970667a42.666667 42.666667 0 0 1 0 60.330667l-30.165333 30.165333a42.666667 42.666667 0 1 1-60.330667-60.330667l30.165333-30.165333a42.666667 42.666667 0 0 1 60.330667 0z m-603.392 0a42.666667 42.666667 0 0 1 60.330667 0l30.165333 30.165333A42.666667 42.666667 0 0 1 240.469333 300.8l-30.165333-30.165333a42.666667 42.666667 0 0 1 0-60.330667zM512 341.333333a170.666667 170.666667 0 1 0 0 341.333334 170.666667 170.666667 0 0 0 0-341.333334z m-256 170.666667a256 256 0 1 1 512 0 256 256 0 0 1-512 0z m-170.666667 0a42.666667 42.666667 0 0 1 42.666667-42.666667h42.666667a42.666667 42.666667 0 1 1 0 85.333334H128a42.666667 42.666667 0 0 1-42.666667-42.666667z m725.333334 0a42.666667 42.666667 0 0 1 42.666666-42.666667h42.666667a42.666667 42.666667 0 1 1 0 85.333334h-42.666667a42.666667 42.666667 0 0 1-42.666666-42.666667zM240.469333 723.2a42.666667 42.666667 0 0 1 60.330667 60.330667l-30.165333 30.165333a42.666667 42.666667 0 0 1-60.330667-60.330667l30.165333-30.165333z m482.730667 60.330667a42.666667 42.666667 0 0 1 60.330667-60.330667l30.165333 30.165333a42.666667 42.666667 0 0 1-60.330667 60.330667l-30.165333-30.165333zM512 810.666667a42.666667 42.666667 0 0 1 42.666667 42.666666v42.666667a42.666667 42.666667 0 1 1-85.333334 0v-42.666667a42.666667 42.666667 0 0 1 42.666667-42.666666z"
+                        fill="#f4e6ca"
+                        strokeWidth="2"
+                      />
+                    </Svg>
+                    <Text
+                      style={[
+                        styles.radioLabel,
+                        selectedPlaceOptions.includes(option.value) &&
+                          styles.radioLabelSelected2,
+                      ]}
+                    >
+                      {option.label}
+                    </Text>
+                  </Pressable>
+                </View>
+              ))}
+              {OptionEvening.map((option) => (
+                <View
+                  key={option.value}
+                  style={[
+                    styles.AnswerBackground3,
+                    selectedPlaceOptions.includes(option.value) &&
+                      styles.AnswerBackgroundSelected3,
+                  ]}
+                >
+                  <Pressable
+                    style={styles.radioOption}
+                    onPress={() => handleSelectOption(option.value)}
+                  >
+                    <Svg
+                      height="28" // Adjust as needed
+                      width="28" // Adjust as needed
+                      viewBox="0 0 1024 1024" // Your SVG's viewbox
+                      style={styles.yourSvgIconStyle}
+                    >
+                      <Path
+                        d="M676.64 72.373333a21.333333 21.333333 0 0 0-28.426667 24.96c7.733333 32 17.333333 77.973333 17.333334 108.64a407.36 407.36 0 0 1-585.173334 366.4 21.333333 21.333333 0 0 0-30.293333 23.04 469.333333 469.333333 0 0 0 485.333333 385.333334c243.84-11.84 439.413333-212.16 445.76-456.213334a469.333333 469.333333 0 0 0-304.533333-452.16zM512 906.666667a395.306667 395.306667 0 0 1-357.333333-226.4 2.186667 2.186667 0 0 1 2.453333-3.04 480 480 0 0 0 100.96 10.666666 482.506667 482.506667 0 0 0 481.92-481.92v-11.68a2.186667 2.186667 0 0 1 3.466667-1.813333 395.52 395.52 0 0 1 81.44 78.986667A390.826667 390.826667 0 0 1 906.666667 512a395.146667 395.146667 0 0 1-394.666667 394.666667zM202.293333 262.72a8.96 8.96 0 0 0 2.88 0.426667 75.946667 75.946667 0 0 1 75.733334 75.733333 7.626667 7.626667 0 0 0 0.48 2.88 11.52 11.52 0 0 0 22.186666 0 8.746667 8.746667 0 0 0 0.426667-2.88 76 76 0 0 1 75.733333-75.733333 8.746667 8.746667 0 0 0 2.88-0.426667 11.573333 11.573333 0 0 0 0-22.24 8.746667 8.746667 0 0 0-2.88-0.426667A75.946667 75.946667 0 0 1 304 164.32a8.746667 8.746667 0 0 0-0.426667-2.88 11.52 11.52 0 0 0-22.186666 0 7.626667 7.626667 0 0 0-0.48 2.88A75.893333 75.893333 0 0 1 205.386667 240a8.96 8.96 0 0 0-2.88 0.426667 11.573333 11.573333 0 0 0 0 22.24z"
+                        fill="#eaddde"
+                        strokeWidth="2"
+                      />
+                    </Svg>
+                    <Text
+                      style={[
+                        selectedPlaceOptions.includes(option.value) &&
+                          styles.radioLabelSelected,
+                      ]}
+                    >
+                      {option.label}
+                    </Text>
+                  </Pressable>
+                </View>
+              ))}
             </View>
           </View>
         </View>
+
         <Text style={styles.theDefaultAvailable1}>
           The default available times are in the evenings
         </Text>
+
         <Pressable
           style={[styles.saveWrapper, styles.saveWrapperFlexBox]}
           onPress={() =>
@@ -328,120 +413,11 @@ const ManualChooseSchedule = () => {
 };
 
 const styles = StyleSheet.create({
-  dayButtonLayout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton1Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton2Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton3Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton4Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton5Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton6Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton7Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton8Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton9Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton10Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton11Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton12Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  dayButton13Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  nightButtonLayout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  nightButton1Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  nightButton2Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  nightButton3Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  nightButton4Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  nightButton5Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
-  nightButton6Layout: {
-    backgroundColor: "transparent",
-    padding: 0,
-    position: "relative",
-  },
   saveWrapperFlexBox: {
     overflow: "hidden",
     alignItems: "center",
   },
-  backbuttonFlexBox: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+
   saveTypo: {
     textAlign: "center",
     fontFamily: FontFamily.dMSans,
@@ -503,25 +479,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: FontFamily.dMSans,
   },
-  mon: {
-    width: 51,
-    height: 22,
-    lineHeight: 19,
-    fontSize: FontSize.size_base,
-    textAlign: "center",
-    color: Color.colorBlack,
-    fontFamily: FontFamily.dMSans,
-    fontWeight: "500",
-  },
-  tue: {
-    width: 43,
-  },
-  wed: {
-    width: 44,
-  },
+
   daysweek: {
-    height: 484,
+    height: 465,
     alignItems: "center",
+    justifyContent: "space-between",
   },
   text21: {
     width: 34,
@@ -561,13 +523,7 @@ const styles = StyleSheet.create({
     lineHeight: 12,
     fontSize: FontSize.size_3xs,
   },
-  manualselect: {
-    justifyContent: "space-between",
-    width: 315,
-    marginTop: 20,
-    flexDirection: "row",
-    alignItems: "center",
-  },
+
   theDefaultAvailable1: {
     fontSize: FontSize.size_sm,
     lineHeight: 17,
@@ -622,6 +578,124 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Color.colorWhite,
     overflow: "hidden",
+  },
+
+  //
+  placeOption: {
+    position: "relative",
+  },
+
+  backbuttonFlexBox: {
+    flexDirection: "row",
+
+    justifyContent: "center",
+  },
+
+  optionWapper: {
+    flexDirection: "column",
+    flexWrap: "wrap", // Allowing change rows
+    zIndex: -1,
+    height: 500,
+    // justifyContent: "space-between",
+    gap: 18,
+    // justifyContent: "space-between",
+  },
+
+  manualselect: {
+    justifyContent: "space-between",
+    width: ScreenWidth * 0.7,
+    marginTop: 20,
+    marginLeft: 5,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  AnswerBackground1: {
+    backgroundColor: "#fff",
+    borderColor: "#DDAE51",
+    width: 55,
+    height: 55,
+    borderRadius: 6,
+    borderWidth: 2,
+    display: "flex",
+    zIndex: -1,
+    marginRight: 10,
+  },
+
+  AnswerBackgroundSelected1: {
+    backgroundColor: "#DDAE51",
+    borderWidth: 2,
+    borderColor: "#fff",
+  },
+
+  AnswerBackground2: {
+    backgroundColor: "#fff",
+
+    width: 55,
+    height: 55,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: "#F4A261",
+    display: "flex",
+    zIndex: -1,
+    marginRight: 10,
+  },
+
+  AnswerBackgroundSelected2: {
+    backgroundColor: "#F4A261",
+    borderWidth: 2,
+    borderColor: "#fff",
+  },
+
+  AnswerBackground3: {
+    backgroundColor: "#fff",
+    borderColor: "#BC8F92",
+    width: 55,
+    height: 55,
+    borderRadius: 6,
+    borderWidth: 2,
+    display: "flex",
+    zIndex: -1,
+    marginRight: 10,
+  },
+
+  AnswerBackgroundSelected3: {
+    backgroundColor: "#BC8F92",
+    borderWidth: 2,
+    borderColor: "#fff",
+  },
+
+  optionText: {
+    position: "absolute",
+    top: 42,
+    zIndex: 1100,
+    width: 50,
+    marginLeft: 13,
+    left: "50%",
+    fontSize: 10,
+    color: "#444",
+  },
+
+  radioLabelSelected: {
+    color: "white",
+    fontWeight: "600",
+  },
+
+  radioOption: {
+    flex: 1,
+    // alignItems: "center",
+    // marginVertical: 8,
+    // justifyContent: "center",
+  },
+
+  yourSvgIconStyle: {
+    position: "absolute",
+    alignSelf: "center",
+
+    top: "43%",
+    transform: [{ translateY: -10 }], // Adjust based on the size of your icon
+    color: "#f4e6ca",
+    zIndex: 1100,
   },
 });
 
