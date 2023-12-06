@@ -14,7 +14,7 @@ const PlantStatusPage = () => {
     require("../assets/painting1.png")
   );
   const [statusText, setStatusText] = useState(
-    "Have you watered your Fiddle-leaf fig today?"
+    "Have you watered your Boston Fern today?"
   );
   const navigation = useNavigation();
 

@@ -25,8 +25,6 @@ const AddPlantPage3: React.FC = () => {
       potsize: potOption,
     };
 
-    storeData(combinedData);
-
     // Navigate to AddedDataPage with the combined data
     navigation.navigate("BottomTabsRoot", {
       screen: "HomePage",
@@ -108,30 +106,6 @@ const AddPlantPage3: React.FC = () => {
       value: "largepot",
     },
   ];
-
-  // The function for storeData
-  const storeData = async (newData) => {
-    try {
-      // Retrieve existing data
-      const existingData = await AsyncStorage.getItem("plantDataStorage");
-      let newDataArray = JSON.parse(existingData);
-
-      if (!newDataArray) {
-        newDataArray = []; // If no existing data, create a new array
-      }
-
-      // Append new data
-      newDataArray.push(newData);
-
-      // Save updated data array
-      await AsyncStorage.setItem(
-        "plantDataStorage",
-        JSON.stringify(newDataArray)
-      );
-    } catch (e) {
-      console.error("Failed to save the data to AsyncStorage", e);
-    }
-  };
 
   return (
     <View style={styles.addPlantPage31}>

@@ -68,13 +68,13 @@ const Notifications = () => {
           {" "}
           Notification Frecuency
         </Text>
-        <Pressable
+        {/* <Pressable
           style={[styles.framePressable, styles.framePressableSpaceBlock]}
         >
           <Text style={[styles.myPlants1, styles.myPlants1FlexBox]}>
             Twice a day
           </Text>
-        </Pressable>
+        </Pressable> */}
         <Pressable
           style={[
             styles.framePressable,
@@ -92,7 +92,7 @@ const Notifications = () => {
           style={[styles.myPlantsWrapper1, styles.framePressableSpaceBlock]}
         >
           <Text style={[styles.myPlants1, styles.myPlants1FlexBox]}>
-            3 times a week
+            Mutipel times a day until plant care completed
           </Text>
         </Pressable>
       </View>

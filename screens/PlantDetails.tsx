@@ -85,6 +85,13 @@ const PlantDetails = () => {
   const drainHoleText = plantDataFromHome.drainageOption;
   const lightTypeText = plantDataFromHome.lightingOption;
   const plantHomelocation = plantDataFromHome.plantLocation;
+  const acquiDateStr = plantDataFromHome.plantdate;
+
+  // Culculate owntime
+  const acquiDate = new Date(acquiDateStr);
+  const currentDate = new Date();
+  const diffInTime = currentDate.getTime() - acquiDate.getTime();
+  const ownTime = Math.floor(diffInTime / (1000 * 3600 * 24));
 
   return (
     <ScrollView
@@ -115,13 +122,17 @@ const PlantDetails = () => {
               <View style={styles.monsteraParent}>
                 <Text style={styles.daysTypo1}>{planttypeText}</Text>
                 <Text style={[styles.days, styles.daysTypo1]}>
-                  · {lastwater} days
+                  · {ownTime} days
                 </Text>
               </View>
             </View>
             <Pressable
               style={styles.editbutton}
-              onPress={() => navigation.navigate("AddPlantPage1")}
+              onPress={() =>
+                navigation.navigate("AddPlantPage1", {
+                  plantDataForEdit: plantDataFromHome,
+                })
+              }
             >
               <Image
                 style={styles.icon}

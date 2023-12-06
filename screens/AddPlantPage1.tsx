@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontFamily, FontSize, Color, Border, Padding } from "../GlobalStyles";
+import { useRoute } from "@react-navigation/native";
 
 type RadioOption = {
   label: string | JSX.Element;
@@ -19,10 +20,17 @@ type RadioOption = {
 };
 
 const AddPlantPage1: React.FC = () => {
+  const route = useRoute();
+  const plantDataforEdit = route.params?.plantDataForEdit;
+  const [plantNickname, setPlantNickname] = useState(
+    plantDataforEdit?.plantNickname || ""
+  );
+  const [plantdate, setplantdate] = useState(plantDataforEdit?.plantdate || "");
+
   // Get the value of Nickname
-  const [plantNickname, setPlantNickname] = useState("");
-  // Get the value of the date of acquisition
-  const [plantdate, setplantdate] = useState("");
+  // const [plantNickname, setPlantNickname] = useState("");
+  // // Get the value of the date of acquisition
+  // const [plantdate, setplantdate] = useState("");
   /** For Plant location choose */
   const [frameRadioselectedIndex, setFrameRadioselectedIndex] =
     useState(undefined);
@@ -175,207 +183,256 @@ const AddPlantPage1: React.FC = () => {
     "Yemen",
   ];
 
+  // State to track if the date is valid
+  const [isDateValid, setIsDateValid] = useState(true);
+
+  const validateDate = (date) => {
+    // Check the format of date
+    const regex = /^\d{2}\/\d{2}\/\d{4}$/;
+    if (!date.match(regex)) return false;
+
+    // Check if the date ensuing it is not later then today
+    const inputDate = new Date(date.split("/").reverse().join("-"));
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // remove time
+    return inputDate <= today;
+  };
+  // Modify this part to update the isDateValid state
+  const handleBlur = () => {
+    console.log("Check if onBlur is called");
+    if (!validateDate(plantdate)) {
+      // console.log("Invalid date or date is in the future");
+      setIsDateValid(false); // Set to false if date is invalid
+    } else {
+      setIsDateValid(true); // Set to true if date is valid
+    }
+  };
+
+  const [showPopup, setShowPopup] = useState(false);
+
   // Store values and pass to next page
   const handleNextPress = () => {
-    const plantData1 = {
-      plantNickname: plantNickname,
-      plantType: plantInput,
-      plantdate: plantdate,
-      plantLocation: PlaceOption,
-      cityCountry: cityCountryInput,
-    };
-    navigation.navigate("AddPlantPage2", { plantData1 });
-    console.log(plantData1); //Test
+    if (isDateValid) {
+      const plantData1 = {
+        plantNickname: plantNickname,
+        plantType: plantInput,
+        plantdate: plantdate,
+        plantLocation: PlaceOption,
+        cityCountry: cityCountryInput,
+      };
+      navigation.navigate("AddPlantPage2", { plantData1 });
+      console.log(plantData1); // Test
+    } else {
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 1000); // Hide popup after 3 seconds
+    }
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => setShowPlantDropdown(false)}>
-      <View style={styles.addPlantPage11}>
-        <View style={styles.content}>
-          <View style={[styles.top, styles.topFlexBox]}>
-            <Pressable
-              style={styles.return}
-              onPress={() => navigation.goBack()}
-            >
-              <Image
-                style={styles.icon}
-                contentFit="cover"
-                source={require("../assets/return3.png")}
-              />
-            </Pressable>
-            <Text style={[styles.myPlants, styles.nextTypo]}>
-              Add your plant
-            </Text>
-          </View>
-          <View style={styles.frameView}>
-            <View style={styles.questionwapper}>
-              <View style={[styles.questionTitle]}>
-                Your Plant Nickname <Text style={styles.asterisk}> {"*"}</Text>
-              </View>
-              <TextInput
-                style={styles.Inputbox}
-                placeholder="Enter the name for your plant"
-                placeholderTextColor="#666"
-                value={plantNickname}
-                onChangeText={setPlantNickname}
-              />
+    <>
+      <TouchableWithoutFeedback onPress={() => setShowPlantDropdown(false)}>
+        <View style={styles.addPlantPage11}>
+          <View style={styles.content}>
+            <View style={[styles.top, styles.topFlexBox]}>
+              <Pressable
+                style={styles.return}
+                onPress={() => navigation.goBack()}
+              >
+                <Image
+                  style={styles.icon}
+                  contentFit="cover"
+                  source={require("../assets/return3.png")}
+                />
+              </Pressable>
+              <Text style={[styles.myPlants, styles.nextTypo]}>
+                Add your plant
+              </Text>
             </View>
-
-            <View style={[styles.frameView, styles.UpperContainer]}>
-              <View style={[styles.questionwapper]}>
-                <Text style={styles.questionTitle}>
-                  Plant Type <Text style={styles.asterisk}> {"*"}</Text>
-                </Text>
-
-                <View style={styles.dropdownContainer}>
-                  <TextInput
-                    style={styles.inputBox}
-                    value={plantInput}
-                    editable={false}
-                    placeholder="Select plant type"
-                    placeholderTextColor="#666"
-                  />
-                  <Pressable
-                    style={styles.dropdownButton}
-                    onPress={() => setShowPlantDropdown(!showPlantDropdown)}
-                  >
-                    <Text>▼</Text>
-                  </Pressable>
-                </View>
-                <View onStartShouldSetResponder={() => true}>
-                  {showPlantDropdown && (
-                    <ScrollView
-                      style={[styles.scrollView1, styles.suggestionsContainer]}
-                    >
-                      {plantTypeOptions.map((option, index) => (
-                        <TouchableOpacity
-                          key={index}
-                          style={styles.option}
-                          onPress={() => {
-                            setPlantInput(option);
-                            setShowPlantDropdown(false);
-                          }}
-                        >
-                          <Text>{option}</Text>
-                        </TouchableOpacity>
-                      ))}
-                    </ScrollView>
-                  )}
-                </View>
-              </View>
-            </View>
-
             <View style={styles.frameView}>
               <View style={styles.questionwapper}>
-                <View style={styles.questionTitle}>
-                  Plant Location <Text style={styles.asterisk}> {"*"}</Text>{" "}
-                  <Text style={styles.greytext}>
-                    {" "}
-                    {"(Choose one location below)"}
-                  </Text>
+                <View style={[styles.questionTitle]}>
+                  Your Plant Nickname{" "}
+                  <Text style={styles.asterisk}> {"*"}</Text>
                 </View>
-                <View style={styles.optionWapper}>
-                  {PlaceOptions.map((option) => (
-                    <View
-                      style={[
-                        styles.AnswerBackground,
-                        PlaceOption === option.value &&
-                          styles.AnswerBackgroundSelected,
-                      ]}
+                <TextInput
+                  style={styles.Inputbox}
+                  placeholder="Enter the name for your plant"
+                  placeholderTextColor="#666"
+                  value={plantNickname}
+                  onChangeText={setPlantNickname}
+                />
+              </View>
+
+              <View style={[styles.frameView, styles.UpperContainer]}>
+                <View style={[styles.questionwapper]}>
+                  <Text style={styles.questionTitle}>
+                    Plant Type <Text style={styles.asterisk}> {"*"}</Text>
+                  </Text>
+
+                  <View style={styles.dropdownContainer}>
+                    <TextInput
+                      style={styles.inputBox}
+                      value={plantInput}
+                      editable={false}
+                      placeholder="Select plant type"
+                      placeholderTextColor="#666"
+                    />
+                    <Pressable
+                      style={styles.dropdownButton}
+                      onPress={() => setShowPlantDropdown(!showPlantDropdown)}
                     >
-                      <Pressable
-                        key={option.value}
-                        style={styles.radioOption}
-                        onPress={() => setPlaceOption(option.value)}
+                      <Text>▼</Text>
+                    </Pressable>
+                  </View>
+                  <View onStartShouldSetResponder={() => true}>
+                    {showPlantDropdown && (
+                      <ScrollView
+                        style={[
+                          styles.scrollView1,
+                          styles.suggestionsContainer,
+                        ]}
                       >
-                        <Text
-                          style={[
-                            styles.radioLabel,
-                            PlaceOption === option.value &&
-                              styles.radioLabelSelected,
-                          ]}
-                        >
-                          {option.label}
-                        </Text>
-                      </Pressable>
-                    </View>
-                  ))}
+                        {plantTypeOptions.map((option, index) => (
+                          <TouchableOpacity
+                            key={index}
+                            style={styles.option}
+                            onPress={() => {
+                              setPlantInput(option);
+                              setShowPlantDropdown(false);
+                            }}
+                          >
+                            <Text>{option}</Text>
+                          </TouchableOpacity>
+                        ))}
+                      </ScrollView>
+                    )}
+                  </View>
                 </View>
               </View>
 
               <View style={styles.frameView}>
                 <View style={styles.questionwapper}>
                   <View style={styles.questionTitle}>
-                    Date of Acquisition <Text style={styles.asterisk}> *</Text>
+                    Plant Location <Text style={styles.asterisk}> {"*"}</Text>{" "}
+                    <Text style={styles.greytext}>
+                      {" "}
+                      {"(Choose one location below)"}
+                    </Text>
+                  </View>
+                  <View style={styles.optionWapper}>
+                    {PlaceOptions.map((option) => (
+                      <View
+                        style={[
+                          styles.AnswerBackground,
+                          PlaceOption === option.value &&
+                            styles.AnswerBackgroundSelected,
+                        ]}
+                      >
+                        <Pressable
+                          key={option.value}
+                          style={styles.radioOption}
+                          onPress={() => setPlaceOption(option.value)}
+                        >
+                          <Text
+                            style={[
+                              styles.radioLabel,
+                              PlaceOption === option.value &&
+                                styles.radioLabelSelected,
+                            ]}
+                          >
+                            {option.label}
+                          </Text>
+                        </Pressable>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+
+                <View style={styles.frameView}>
+                  <View style={styles.questionwapper}>
+                    <View style={styles.questionTitle}>
+                      Date of Acquisition{" "}
+                      <Text style={styles.asterisk}> *</Text>
+                    </View>
+
+                    <TextInput
+                      style={[
+                        styles.Inputbox,
+                        !isDateValid && styles.errorBorder,
+                      ]} // Apply error style if date is invalid
+                      placeholder="dd/mm/yyyy"
+                      placeholderTextColor="#666"
+                      value={plantdate}
+                      onChangeText={setplantdate}
+                      onBlur={handleBlur} // Use the new handleBlur function
+                    />
+                  </View>
+                </View>
+              </View>
+
+              <View style={styles.theCityOrRegionGrowingTheParent}>
+                <View style={styles.questionwapper}>
+                  <Text style={styles.questionTitle}>
+                    Select country <Text style={styles.asterisk}> {"*"}</Text>
+                  </Text>
+                  <View style={styles.dropdownContainer}>
+                    <TextInput
+                      style={styles.inputBox}
+                      value={cityCountryInput}
+                      editable={false}
+                      placeholder="Select city or region"
+                      placeholderTextColor="#666"
+                    />
+                    <Pressable
+                      style={styles.dropdownButton}
+                      onPress={() =>
+                        setShowCityCountryDropdown(!showCityCountryDropdown)
+                      }
+                    >
+                      <Text>▼</Text>
+                    </Pressable>
                   </View>
 
-                  <TextInput
-                    style={styles.Inputbox}
-                    placeholder="dd/mm/yyyy"
-                    placeholderTextColor="#666"
-                    value={plantdate}
-                    onChangeText={setplantdate}
-                  />
+                  <View onStartShouldSetResponder={() => true}>
+                    {showCityCountryDropdown && (
+                      <ScrollView
+                        style={[styles.scrollView, styles.suggestionsContainer]}
+                      >
+                        {cityCountryOptions.map((option, index) => (
+                          <TouchableOpacity
+                            key={index}
+                            style={styles.option}
+                            onPress={() => {
+                              setCityCountryInput(option);
+                              setShowCityCountryDropdown(false);
+                            }}
+                          >
+                            <Text>{option}</Text>
+                          </TouchableOpacity>
+                        ))}
+                      </ScrollView>
+                    )}
+                  </View>
                 </View>
               </View>
             </View>
 
-            <View style={styles.theCityOrRegionGrowingTheParent}>
-              <View style={styles.questionwapper}>
-                <Text style={styles.questionTitle}>
-                  Select country <Text style={styles.asterisk}> {"*"}</Text>
-                </Text>
-                <View style={styles.dropdownContainer}>
-                  <TextInput
-                    style={styles.inputBox}
-                    value={cityCountryInput}
-                    editable={false}
-                    placeholder="Select city or region"
-                    placeholderTextColor="#666"
-                  />
-                  <Pressable
-                    style={styles.dropdownButton}
-                    onPress={() =>
-                      setShowCityCountryDropdown(!showCityCountryDropdown)
-                    }
-                  >
-                    <Text>▼</Text>
-                  </Pressable>
-                </View>
-
-                <View onStartShouldSetResponder={() => true}>
-                  {showCityCountryDropdown && (
-                    <ScrollView
-                      style={[styles.scrollView, styles.suggestionsContainer]}
-                    >
-                      {cityCountryOptions.map((option, index) => (
-                        <TouchableOpacity
-                          key={index}
-                          style={styles.option}
-                          onPress={() => {
-                            setCityCountryInput(option);
-                            setShowCityCountryDropdown(false);
-                          }}
-                        >
-                          <Text>{option}</Text>
-                        </TouchableOpacity>
-                      ))}
-                    </ScrollView>
-                  )}
-                </View>
-              </View>
-            </View>
+            <Pressable
+              style={[styles.button1, styles.topFlexBox]}
+              onPress={handleNextPress}
+            >
+              <Text style={[styles.next, styles.nextTypo]}>Next</Text>
+            </Pressable>
           </View>
-
-          <Pressable
-            style={[styles.button1, styles.topFlexBox]}
-            onPress={handleNextPress}
-          >
-            <Text style={[styles.next, styles.nextTypo]}>Next</Text>
-          </Pressable>
         </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+
+      {showPopup && (
+        <View style={styles.popupContainer}>
+          <Text>Please input the right date format</Text>
+        </View>
+      )}
+    </>
   );
 };
 
@@ -690,6 +747,20 @@ const styles = StyleSheet.create({
   dropdownButton: {
     padding: 10,
     fontFamily: FontFamily.dMSans,
+  },
+
+  errorBorder: {
+    borderColor: "red", // Change border color to red
+  },
+
+  popupContainer: {
+    position: "absolute",
+    padding: 10,
+    backgroundColor: "#f2f3f3",
+    width: 240,
+    height: 60,
+    top: 20,
+    left: "20%",
   },
 });
 
