@@ -39,8 +39,16 @@ const Notifications = () => {
             No Notifications
           </Text>
         </Pressable>
-        <Pressable style={[styles.myPlantsContainer, styles.plantsSpaceBlock]}>
-          <Text style={[styles.myPlants1, styles.myPlants1FlexBox]}>
+        <Pressable
+          style={[
+            styles.myPlantsContainer,
+            styles.plantsSpaceBlock,
+            styles.push,
+          ]}
+        >
+          <Text
+            style={[styles.myPlants1, styles.myPlants1FlexBox, styles.push]}
+          >
             Push Notifications
           </Text>
         </Pressable>
@@ -60,10 +68,23 @@ const Notifications = () => {
           {" "}
           Notification Frecuency
         </Text>
-        <Pressable
+        {/* <Pressable
           style={[styles.framePressable, styles.framePressableSpaceBlock]}
         >
           <Text style={[styles.myPlants1, styles.myPlants1FlexBox]}>
+            Twice a day
+          </Text>
+        </Pressable> */}
+        <Pressable
+          style={[
+            styles.framePressable,
+            styles.framePressableSpaceBlock,
+            styles.push,
+          ]}
+        >
+          <Text
+            style={[styles.myPlants1, styles.myPlants1FlexBox, styles.push]}
+          >
             Once a day
           </Text>
         </Pressable>
@@ -71,7 +92,7 @@ const Notifications = () => {
           style={[styles.myPlantsWrapper1, styles.framePressableSpaceBlock]}
         >
           <Text style={[styles.myPlants1, styles.myPlants1FlexBox]}>
-            Until plant care completed
+            Mutipel times a day until plant care completed
           </Text>
         </Pressable>
       </View>
@@ -185,7 +206,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_7xl,
   },
   notificationFrecuencyParent: {
-    top: 480,
+    top: 430,
   },
   save: {
     fontSize: FontSize.size_xl,
@@ -220,6 +241,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 844,
     overflow: "hidden",
+  },
+  push: {
+    backgroundColor: "#98bf64",
+    color: "#fff",
   },
 });
 

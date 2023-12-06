@@ -70,7 +70,7 @@ const PlantDetails = () => {
   const planttypeText = plantInfo.name;
 
   //Calculate with other variables
-  const lastDateWater = new Date("2023-11-10"); // Replace this with your actual date
+  const lastDateWater = new Date("2023-11-20"); // Replace this with your actual date
   const today = new Date(); //gets the date in miliseconds
   today.setHours(0, 0, 0, 0); //set clock to midnight to get full days difference
   const lastwater = Math.floor(
@@ -85,6 +85,13 @@ const PlantDetails = () => {
   const drainHoleText = plantDataFromHome.drainageOption;
   const lightTypeText = plantDataFromHome.lightingOption;
   const plantHomelocation = plantDataFromHome.plantLocation;
+  const acquiDateStr = plantDataFromHome.plantdate;
+
+  // Culculate owntime
+  const acquiDate = new Date(acquiDateStr);
+  const currentDate = new Date();
+  const diffInTime = currentDate.getTime() - acquiDate.getTime();
+  const ownTime = Math.floor(diffInTime / (1000 * 3600 * 24));
 
   return (
     <ScrollView
@@ -114,12 +121,18 @@ const PlantDetails = () => {
               </Text>
               <View style={styles.monsteraParent}>
                 <Text style={styles.daysTypo1}>{planttypeText}</Text>
-                <Text style={[styles.days, styles.daysTypo1]}>· 24 days</Text>
+                <Text style={[styles.days, styles.daysTypo1]}>
+                  · {ownTime} days
+                </Text>
               </View>
             </View>
             <Pressable
               style={styles.editbutton}
-              onPress={() => navigation.navigate("AddPlantPage1")}
+              onPress={() =>
+                navigation.navigate("AddPlantPage1", {
+                  plantDataForEdit: plantDataFromHome,
+                })
+              }
             >
               <Image
                 style={styles.icon}
